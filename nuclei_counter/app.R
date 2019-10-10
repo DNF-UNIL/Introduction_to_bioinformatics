@@ -8,7 +8,7 @@ library(stringr)
 options(shiny.maxRequestSize = 20 * 1024^2) # max upload size extended from 5 to 20 MB 
 
 ui <- fluidPage(
-  titlePanel("Cell Counter"),
+  titlePanel("Nuclei Counter"),
   
   sidebarLayout(
     sidebarPanel(
@@ -25,9 +25,13 @@ ui <- fluidPage(
       sliderInput("tolerance", "Tolerance:", min = 0, max = 10, value = 2, step = 1),
       
       br(),
-      downloadButton("downloadGraphics", "Download graphics"),
+      h3(strong("Export")),
+      textInput("prefix", "Prefix for downloaded files:", placeholder = "My_Awesome_Analysis"),
+      # downloadButton("downloadGraphics", "Download graphics"),
+      # br(), br(),
+      downloadButton("downloadData", "Download data"),
       br(), br(),
-      downloadButton("downloadData", "Download data")
+      downloadButton("downloadSettings", "Download log")
     ),
     mainPanel(
       h3(strong("Imported file info")),
@@ -110,8 +114,21 @@ server <- function(input, output) {
   output$table <- renderDataTable(options = list(pageLength = 10), { df() })
   
   output$downloadData <- downloadHandler(
-    filename = function() { paste0("downloadData_", str_remove_all(Sys.Date(), pattern = "-"), ".csv") },
+    filename = function() { paste0(input$prefix, "_downloadData_", str_remove_all(Sys.Date(), pattern = "-"), ".csv") },
     content = function(file) { write.csv(df(), file) }
+  )
+  
+  settings <- reactive({
+    settings <- tibble(
+      parameter = c("filename","threshold width","threshold height","offset","brush","tolerance"),
+      value = c(input$myFile$name,input$w,input$h,input$offset,input$brush,input$tolerance)
+    )
+    settings
+  })
+  
+  output$downloadSettings <- downloadHandler(
+    filename = function() {paste0(input$prefix, "_downloadSettings_", str_remove_all(Sys.Date(), pattern = "-"), ".csv") },
+    content = function(file) { write.csv(settings(), file) }
   )
   
 }
