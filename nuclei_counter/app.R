@@ -4,58 +4,80 @@ library(dplyr)
 library(ggplot2)
 library(ggExtra)
 library(stringr)
+library(shinythemes)
 
-options(shiny.maxRequestSize = 20 * 1024^2) # max upload size extended from 5 to 20 MB 
+# max upload size extended from 5 (default) to 20 MB 
+options(shiny.maxRequestSize = 20 * 1024^2) 
 
 ui <- fluidPage(
-  titlePanel("Nuclei Counter"),
+  # themeSelector(),
+  theme = shinythemes::shinytheme("spacelab"),
+  
+  titlePanel("Nuclei Counter", windowTitle = "NucleiCounter"),
   
   sidebarLayout(
     sidebarPanel(
-      h3(strong("Import")),
-      fileInput("myFile", "Select image:", 
-                accept = c("image/png","image/jpeg","image/jpg","image/tiff","image/tif")), # multiple = T
+      width = 3,
       
-      br(),
+      # import ui
+      h3(strong("Import")),
+      fileInput("myFile", "Select Image:", 
+                accept = c("image/png","image/jpeg","image/jpg","image/tiff","image/tif"), 
+                placeholder = "No File Selected"), # multiple = T
+      
+      # parameters ui
       h3(strong("Parameters")),
-      sliderInput("w", "Threshold width:", min = 1, max = 50, value = 25, step = 1),
-      sliderInput("h", "Threshold height:", min = 1, max = 50, value = 25, step = 1),
+      sliderInput("w", "Threshold Width:", min = 1, max = 50, value = 25, step = 1),
+      sliderInput("h", "Threshold Height:", min = 1, max = 50, value = 25, step = 1),
       sliderInput("offset", "Offset:", min = 0, max = 1, value = .05, step = .05),
       sliderInput("brush", "Brush:", min = 1, max = 15, value = 3, step = 2),
       sliderInput("tolerance", "Tolerance:", min = 0, max = 10, value = 2, step = 1),
       
-      br(),
+      # analysis ui
+      h3(strong("Analysis")),
+      actionButton("analyze", "Start Analysis"),
+      
+      # export ui
       h3(strong("Export")),
-      textInput("prefix", "Prefix for downloaded files:", placeholder = "My_Awesome_Analysis"),
+      textInput("prefix", "Prefix Exported Files:", placeholder = "My_Awesome_Analysis"),
       # downloadButton("downloadGraphics", "Download graphics"),
       # br(), br(),
-      downloadButton("downloadData", "Download data"),
+      downloadButton("downloadData", "Download Data"),
       br(), br(),
-      downloadButton("downloadSettings", "Download log")
+      downloadButton("downloadSettings", "Download Log")
     ),
     mainPanel(
-      h3(strong("Imported file info")),
+      h3(strong("Imported File Info")),
       fluidRow(verbatimTextOutput("fileName")),
       fluidRow(verbatimTextOutput("path")),
       
+      # show original and final rendered images
       br(),
       fluidRow(
         column(5,
-               h3(strong("F1 image")),
-               plotOutput("original")),
+               h3(strong("F1 Image")),
+               plotOutput("original")
+        ),
         column(5,
-               h3(strong("F2 image")),
-               plotOutput("workbench"))
+               h3(strong("F2 Image")),
+               plotOutput("workbench")
+        )
       ),
       br(),
-      fluidRow(
-        column(5,
-               h3(strong("Graphical output")),
-               verbatimTextOutput("n"),
-               plotOutput("gg")),
-        column(5,
-               h3(strong("Table output")),
-               dataTableOutput("table"))
+      
+      # graphical and tabular output of data
+      conditionalPanel("input.analyze != 0",
+                       fluidRow(
+                         column(5,
+                                h3(strong("Graphical Output")),
+                                verbatimTextOutput("n"),
+                                plotOutput("gg")
+                         ),
+                         column(5,
+                                h3(strong("Table Output")),
+                                dataTableOutput("table")
+                         )
+                       )
       )
     )
   )
@@ -63,30 +85,33 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
+  # import server
   output$fileName <- renderPrint({ input$myFile$name })
-  
   output$path <- renderPrint({ input$myFile$datapath })
   
+  # import original image
   nuc <- reactive({
     f = input$myFile$datapath
     readImage(f)
   })
   
-  output$original <- renderPlot({ plot(nuc()) })
-  
+  # manipulate original image
   nmask <- reactive({
     nmask <- thresh(nuc(), w = input$w, h = input$h, offset = input$offset)
     nmask <- opening(nmask, makeBrush(input$brush, shape = "disc"))
     nmask <- fillHull(nmask)
-    nmask <- watershed( distmap(nmask), input$tolerance ) # this part slows shiny down a lot
+    nmask <- watershed( distmap(nmask), input$tolerance ) # this part slows down shiny a lot
     nmask <- bwlabel(nmask)
     nmask
   })
   
+  # display images
+  output$original <- renderPlot({ plot(nuc()) })
   output$workbench <- renderPlot({ plot(nmask()) })
   
   output$n <- renderPrint({ paste(range(nmask())[2], "nuclei detected.") })
   
+  # display size vs expression: graphical and tabular
   df <- reactive({
     total <- range(nmask())[2]
     size <- tabulate(nmask())
@@ -113,6 +138,7 @@ server <- function(input, output) {
   
   output$table <- renderDataTable(options = list(pageLength = 10), { df() })
   
+  # download data table and log
   output$downloadData <- downloadHandler(
     filename = function() { paste0(input$prefix, "_downloadData_", str_remove_all(Sys.Date(), pattern = "-"), ".csv") },
     content = function(file) { write.csv(df(), file) }
