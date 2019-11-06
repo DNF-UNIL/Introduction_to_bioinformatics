@@ -64,6 +64,22 @@ by L. Telley
 
 https://juba.github.io/tidyverse/02-prise_en_main.html
 
+#### EBImage
+
+Is necesary to install in the terminal this dependency before
+
+```bash
+sudo apt-get update
+sudo apt-get install libfftw3-3 libfftw3-dev libtiff5-dev
+```
+
+```R
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("EBImage")
+```
+
 ### Shiny
 
 by Adrian
