@@ -52,8 +52,6 @@ done
 
 #### Binder
 
-#### Jupyter Widgets 
-
 ### R 
 
 ### Shiny
