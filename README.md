@@ -33,7 +33,7 @@ https://github.com/
 ### Bash 
 https://explainshell.com/
 
-#### Download Script
+#### Download image script
 
 ```
 #/bin/bash
@@ -49,10 +49,20 @@ done
 ```
 
 ### Jupyter Notebooks
+https://jupyter.org/
 
 #### Binder
+https://mybinder.org/
+
+### Docker
+https://www.docker.com/
+
+https://hub.docker.com/
 
 ### R 
 
+by L. Telley
+
 ### Shiny
 
+by Adrian
