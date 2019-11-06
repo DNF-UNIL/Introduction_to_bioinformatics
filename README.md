@@ -1,11 +1,48 @@
 # Introduction to bioinformatics 
 
-## How to launch this on Binder
+## DNF Coding Club
 
-Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/DNF-UNIL/Introduction_to_bioinformatics/master?filepath=index.ipynb)
 
-RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/DNF-UNIL/Introduction_to_bioinformatics/master?urlpath=rstudio)
+As you might know, some people in our department are encouraging the use of new technologies for data analysis, visualisation and database scraping. With the support of the PIs, we are happy to announce the start of the DNF coding sessions (i.e. “DNF coding club”) that will provide the basics on daily research technologies such as bash, R, Jupyter and Shiny. 
 
-RShiny: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/DNF-UNIL/Introduction_to_bioinformatics/master?urlpath=shiny/bus-dashboard/)
+The first coding session will take place in the APP room on Wednesday, November 6 from 13:30 to 18:00. The schedule is the following:
 
-## Parts
+1. A quick intro to tools for reproducible research: git, bash, docker and jupyter.
+2. A quick intro to R tools for data manipulation and visualization: dplyr and ggplot2.
+3. Open discussion to prepare for coding topics next session and introduction to a custom-made application for batch image analysis.
+4. Closure with food for brain: pizza.
+
+Every module will take approximately 1h30, with intermittent breaks of 15 min.
+
+The session is open to anyone with or without prior technical knowledge. These activities are designed to get familiar and used to these skills in a friendly and interactive environment. Only requirement is to bring your own laptop with wifi connection.
+
+If you would like to participate to the coding session, please fill in this formulary with your data so we have a fair estimate on the number of participants (for logistics and administrative purposes). 
+
+https://forms.gle/g1xCVTUHT7gY9gMn7
+
+We look forward to your all out enthusiastic presence!
+
+## First Session 6/11/19
+
+### Server Connection
+
+MLHub
+
+### Github 
+https://github.com/
+
+### Bash 
+https://explainshell.com/
+
+#### Download Script
+
+### Jupyter Notebooks
+
+#### Binder
+
+#### Jupyter Widgets 
+
+### R 
+
+### Shiny
+
