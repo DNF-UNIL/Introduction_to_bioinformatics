@@ -35,6 +35,19 @@ https://explainshell.com/
 
 #### Download Script
 
+```
+#/bin/bash
+
+for i in {0..100}
+do
+
+echo $i
+wget https://spainweather.es/webcams/malaga/current.jpg
+sleep 3
+
+done
+```
+
 ### Jupyter Notebooks
 
 #### Binder
