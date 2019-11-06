@@ -25,8 +25,7 @@ We look forward to your all out enthusiastic presence!
 ## First Session 6/11/19
 
 ### Server Connection
-
-MLHub
+http://130.223.196.101:8080
 
 ### Github 
 https://github.com/
