@@ -91,6 +91,7 @@ server <- function(input, output) {
   
   # import original image
   nuc <- reactive({
+    if( is.null(input$myFile) ) { return() }
     f = input$myFile$datapath
     readImage(f)
   })
@@ -106,13 +107,20 @@ server <- function(input, output) {
   })
   
   # display images
-  output$original <- renderPlot({ plot(nuc()) })
-  output$workbench <- renderPlot({ plot(nmask()) })
+  output$original <- renderPlot({
+    if( is.null(input$myFile) ) { return() } 
+    plot(nuc()) })
+  output$workbench <- renderPlot({
+    if( is.null(input$myFile) ) { return() }
+    plot(nmask()) })
   
-  output$n <- renderPrint({ paste(range(nmask())[2], "nuclei detected.") })
+  output$n <- renderPrint({ 
+    if( is.null(input$myFile) ) { return() }
+    paste(range(nmask())[2], "nuclei detected.") })
   
   # display size vs expression: graphical and tabular
   df <- reactive({
+    if( is.null(input$myFile) ) { return() }
     total <- range(nmask())[2]
     size <- tabulate(nmask())
     
@@ -129,6 +137,7 @@ server <- function(input, output) {
   })
   
   output$gg <- renderPlot({
+    if( is.null(input$myFile) ) { return() }
     gg <- ggplot(df(), aes(size, mean)) + 
       geom_point() +
       labs(x = "Size", y = "Mean expression")
