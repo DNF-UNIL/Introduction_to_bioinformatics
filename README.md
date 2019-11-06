@@ -60,8 +60,9 @@ https://www.docker.com/
 https://hub.docker.com/
 
 ### R 
-
 by L. Telley
+
+https://juba.github.io/tidyverse/02-prise_en_main.html
 
 ### Shiny
 
