@@ -71,6 +71,7 @@ Is necesary to install in the terminal this dependency before
 ```bash
 sudo apt-get update
 sudo apt-get install libfftw3-3 libfftw3-dev libtiff5-dev
+sudo conda install -c eumetsat fftw3
 ```
 
 ```R
