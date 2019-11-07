@@ -1,0 +1,116 @@
+---
+title       : Are your hands in proportion with your height?
+subtitle    : A quick tour
+author      : Hadrian84
+job         : R-enthousiast
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : solarized_light 
+widgets     : [bootstrap, quiz]        # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+logo        : Rlogo.png
+github:
+   user: Hadrian84
+   repo: DatascienceAssignment
+---
+
+## Introduction
+
+This application asks for four inputs:
+
+- Your name
+- Gender
+- Height
+- Hand length 
+
+It also relies on a dataset containing many body statistics. This dataset is publicly available (ANSUR: [click here](http://mreed.umtri.umich.edu/mreed/downloads.html#ansur)).
+
+For the purpose of this tour, we used randomized data.
+
+---
+
+## First graphs generated
+
+```{r, echo = FALSE, fig.height = 5, fig.align = 'left'}
+library(ggplot2)
+library(gridExtra)
+
+set.seed(123)
+xs  = sort(rnorm(10000, 174, 3))
+ys  = sort(rnorm(10000, 190, 4))
+yss = ys + rnorm(10000, 0, 4)
+dat = data.frame(value = 1:10000, x = xs, y = ys, regression = yss)
+
+height = 174
+hand   = 190
+
+g1 = ggplot() +
+     geom_density(data = dat, aes(xs), fill = "steelblue4", color = "steelblue4", alpha = 1/2) +
+     scale_y_continuous(limits = c(0, 0.15)) +
+     theme(legend.position = "null") +
+     labs(x = "Body Height (cm)", title = "Body height distribution") +
+     geom_vline(xintercept = height, color = "black", size = 1.1) +
+     annotate("text", x = height - 1, y = 0, angle = 90, hjust = 0, color = "black", label = "Hadrian84") +
+     annotate("text", x = height, y = 0.075, label = "50%", 
+              color = "white", size = 8)     
+
+g2 = ggplot() +
+     geom_density(data = dat, aes(ys), fill = "steelblue4", color = "steelblue4", alpha = 1/2) +
+     scale_y_continuous(limits = c(0, 0.105)) +
+     theme(legend.position = "null") +
+     labs(x = "Hand Length (mm)", title = "Hand length distribution") +
+     geom_vline(xintercept = hand, color = "black", size = 1.1) +
+     annotate("text", x = hand - 1, y = 0, angle = 90, hjust = 0, color = "black", label = "Hadrian84") +
+     annotate("text", x = hand, y = 0.05, label = "50%", 
+              color = "white", size = 8)     
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+
+Based on your input, it compares your **height** and **hand length** with a representative population. 
+
+It also shows what percentage of people have higher values than you.
+
+--- 
+
+## Summarizing graph
+
+```{r, echo = FALSE, fig.height = 5, fig.align = "left"}
+g3 = ggplot(dat, aes(x = xs, y = regression)) +
+     geom_point() +
+     geom_smooth(method = "lm", se = FALSE, size = 1.5, linetype = "dashed", color = "blue") +
+     geom_point(aes(x = height, y = hand), color = "red",  cex = 2.5) +
+     geom_vline(xintercept = height, color = "red", linetype = "dashed", alpha = 1/2) +
+     geom_hline(yintercept = hand, color = "red", linetype = "dashed", alpha = 1/2) +
+     labs(x = "Body Height (cm)", y = "Hand Length (mm)", title = "Relationship body height and hand length")
+
+print(g3)
+```
+
+This regression plot shows the overall **height** and **hand length** relationship (dotted blue line). As expected, taller people have bigger hands (and vice versa). 
+
+Where you reside in this plot is indicated by the red dot.
+
+--- 
+
+## Concluding graph
+
+```{r, echo = FALSE, fig.height = 5, fig.align = "left"}
+g4 = ggplot() +
+     geom_density(data = dat, aes(ys), fill = "steelblue4", color = "steelblue4", alpha = 1/2) +
+     scale_y_continuous(limits = c(0, 0.105)) +
+     theme(legend.position = "null") +
+     labs(x = "Hand Length (mm)", title = "Hand length (given Height)") +
+     geom_vline(xintercept = hand, color = "black", size = 1.1) +
+     annotate("text", x = hand - 1, y = 0, angle = 90, hjust = 0, color = "black", label = "Hadrian84") +
+     annotate("text", x = hand, y = 0.05, label = "50%", 
+              color = "white", size = 8)  
+
+print(g4)
+```
+
+The final graph uses a segment of the regression plot and displays your **hand length** in the hand length distribution of people with your height. 
+
+Again, it shows what percentage of people (with your height) have bigger hands than you.
