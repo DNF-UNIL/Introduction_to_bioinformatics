@@ -175,7 +175,7 @@ summarise(group_by(data, x), ...)
 
 ```
 
-10.	Export your result with write_csv(). Call it “myfirstRoutput.csv”
+10.	Export your result with write_csv(). Call it “myfirstroutput.csv”
 
 ```{r}
 
