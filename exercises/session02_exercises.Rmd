@@ -7,7 +7,11 @@ output: html_document
 
 ## INSTRUCTIONS
 
-There are 3 segments with 10 questions each that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. The hints will guide you what functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
+There are 3 segments with around 10 questions each that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
+
+The hints will guide you what functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
+
+Also check *https://juba.github.io/tidyverse/10-dplyr.html* sections 10.2 and 8.3 for additional help.
 
 ## BASIC OPERATIONS
 
@@ -141,7 +145,15 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 18.	In combination with group_by() function, you can summarise the value of interest by each group. For example, grouping according to genotype, you can find the values of question 17 for each genotype. *HINT: %>% makes the line of execution more readable.* 
 
-Example:
+Example 1:
+
+function2( function1(x,y) )
+
+is more readable as (and equivalent to)
+
+x %>% function1(y) %>% function2()
+
+Example 2:
 
 data %>% group_by(x) %>% summarise(...)
 
@@ -153,7 +165,7 @@ summarise(group_by(data, x), ...)
 
 ```
 
-19.	Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in object called “mysummary”
+19.	Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in an object called “mysummary”
 
 ```{r}
 
