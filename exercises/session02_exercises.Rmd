@@ -23,11 +23,15 @@ Also check *https://juba.github.io/tidyverse/10-dplyr.html* sections 10.2 and 8.
 
 2. Write an if-else statement to check the first element of x. If it is zero, output “This is good”, else output “This is bad”. *HINT: print() and logical operator ==*
 
+Check also *https://www.datamentor.io/r-programming/if-else-statement/*
+
 ```{r}
 
 ```
 
 3. Write a for-loop that iterates over each element of vector x using print()
+
+Check also *https://www.guru99.com/r-for-loop.html* 
 
 ```{r}
 
