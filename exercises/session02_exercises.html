@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Adrian Lo" />
+<meta name="author" content="Adrian C Lo" />
 
 
 <title>Session #2 - Exercises</title>
@@ -364,19 +364,25 @@ summary {
 
 
 <h1 class="title toc-ignore">Session #2 - Exercises</h1>
-<h4 class="author">Adrian Lo</h4>
+<h4 class="author">Adrian C Lo</h4>
 <h4 class="date">12/4/2019</h4>
 
 </div>
 
 
+<div id="instructions" class="section level2">
+<h2>INSTRUCTIONS</h2>
+<p>There are 3 segments with around 10 questions each that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the <em>green play button</em> on the right side of the code chunk to see your output.</p>
+<p>The hints will guide you what functions are required. You can access further information with <em>?x</em> where x is the function name, e.g. ?print().</p>
+<p>Also check <em><a href="https://juba.github.io/tidyverse/10-dplyr.html" class="uri">https://juba.github.io/tidyverse/10-dplyr.html</a></em> sections 10.2 and 8.3 for additional help.</p>
+</div>
 <div id="basic-operations" class="section level2">
 <h2>BASIC OPERATIONS</h2>
 <ol style="list-style-type: decimal">
 <li><p>Create a vector x containing the elements 0,1,2,3,4,5,6. <em>HINT: c()</em></p></li>
 <li><p>Write an if-else statement to check the first element of x. If it is zero, output “This is good”, else output “This is bad”. <em>HINT: print() and logical operator ==</em></p></li>
 <li><p>Write a for-loop that iterates over each element of vector x using print()</p></li>
-<li><p>Write a for-loop that iterates over each element of vector x and print the cube of each value. <em>HINT: 2^3 is to produce the cube of 2, 8</em></p></li>
+<li><p>Write a for-loop that iterates over each element of vector x and print the cube of each value. <em>HINT: 2^3 = cube of 2 = 8</em></p></li>
 <li><p>Write a for-loop that makes a right angle triangle pattern where each row is a number x repeating itself x times. <em>HINT: rep()</em></p></li>
 </ol>
 <p>The pattern is:</p>
@@ -385,8 +391,16 @@ summary {
 <p>333</p>
 <p>4444</p>
 <ol start="6" style="list-style-type: decimal">
-<li><p>Write a for-loop that iterates over the inbuilt iris dataset that evaluates the number of characters in the column name. The output should be like: Sepal.Length (12). <em>HINT: paste0() and nchar()</em></p></li>
-<li><p>Write a for-loop that iterates over the inbuilt iris dataset ad outputs for each flower/row as output: Flower 1 is a setosa and has a Sepal.Length of 5.1</p></li>
+<li>Write a for-loop that iterates over the inbuilt iris dataset that evaluates the number of characters in the column name. The output should be like:</li>
+</ol>
+<p>Sepal.Length (12)</p>
+<p>Sepal.Width (11)</p>
+<p>Petal.Length (12)</p>
+<p>Petal.Width (11)</p>
+<p>Species (7)</p>
+<p><em>HINT: paste0() and nchar()</em></p>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Write a for-loop that iterates over the inbuilt iris dataset ad outputs for each flower/row as output: Flower <em>1</em> is a setosa and has a Sepal.Length of <em>5.1</em></p></li>
 <li><p>Write a for-loop that iterates over each element of vector y and only outputs the positive numbers, i.e. ignoring the negative numbers. <em>HINT: next()</em></p></li>
 <li><p>Write a for-loop that iterates over each element of vector y, till it reaches value 10. If it reaches value 10, stop the for-loop. <em>HINT: break()</em></p></li>
 <li><p>Use the inbuilt rivers dataset and write a for-loop that checks each value. If the value is lower than 500, output “short river”. If the river is more than 2000, output “long river”. Everything else, output the original value.</p></li>
@@ -398,18 +412,25 @@ summary {
 <li><p>Import readr and dplyr packages</p></li>
 <li><p>Import dataset tidy.csv and store it in an object called “mydata” <em>HINT: read_csv()</em></p></li>
 <li><p>Check out mydata, how many rows and columns are there?</p></li>
-<li><p>Genotype, treatment and gender should be categorical variables with some order (instead of the default alphabetical order). Transform these into order “WT”,”GM” for genotype, “CTR_X”,”TRT_X”,”TRT_Y”,”TRT_Z” for treatment and “M”,”F” for gender. <em>HINT: mutate() and factor(…, levels = c(…)).</em></p></li>
+<li><p>Genotype, treatment and gender should be categorical variables with some order (instead of the default alphabetical order). Transform these into order “WT”,”GM” for genotype, “CTR_X”,”TRT_X”,”TRT_Y”,”TRT_Z” for treatment and “M”,”F” for gender. Store it again in object “mydata”. <em>HINT: mutate() and factor(…, levels = c(…)).</em></p></li>
 </ol>
 <p>Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))</p>
 <ol start="15" style="list-style-type: decimal">
-<li><p>Variables are unnormalized. Create three new columns with the variables multiplied by the norm column. Name the new columns var_x_norm, var_y_norm and var_z_norm. Store in an object called “mydata_t”. <em>HINT: mutate()</em></p></li>
+<li><p>Continue from mydata from question 14. Variables are unnormalized. Create three new columns with the variables multiplied by the norm column. Name the new columns var_x_norm, var_y_norm and var_z_norm. Store in an object called “mydata_t”. <em>HINT: mutate()</em></p></li>
 <li><p>Continue from mydata_t. Filter values that only contain male (gender == “M”) samples, store this in an object called “mymales”. Continue working with mymales untill question 20. <em>HINT: filter()</em></p></li>
-<li><p>The summarise() function is very useful for collapsing a large dataset into a single observation. Summarise the mymales dataset to find the following columns / values: min_value_x_norm (minimum value for var_x_norm) and mean_value_x_norm (mean value for value_x_norm). <em>HINT: min() and mean() </em></p></li>
+<li><p>Continue from mymales. The summarise() function is very useful for collapsing a large dataset into a single observation. Summarise the mymales dataset to find the following columns / values: min_value_x_norm (minimum value for var_x_norm) and mean_value_x_norm (mean value for value_x_norm). <em>HINT: min() and mean() </em></p></li>
 <li><p>In combination with group_by() function, you can summarise the value of interest by each group. For example, grouping according to genotype, you can find the values of question 17 for each genotype. <em>HINT: %&gt;% makes the line of execution more readable.</em></p></li>
 </ol>
-<p>Example: data %&gt;% group_by(x) %&gt;% summarise(…) is equivalent to (but more readable than) summarise(group_by(data, x), …)</p>
+<p>Example 1:</p>
+<p>function2( function1(x,y) )</p>
+<p>is more readable as (and equivalent to)</p>
+<p>x %&gt;% function1(y) %&gt;% function2()</p>
+<p>Example 2:</p>
+<p>data %&gt;% group_by(x) %&gt;% summarise(…)</p>
+<p>is equivalent to (but more readable than)</p>
+<p>summarise(group_by(data, x), …)</p>
 <ol start="19" style="list-style-type: decimal">
-<li><p>Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in object called “mysummary”</p></li>
+<li><p>Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in an object called “mysummary”</p></li>
 <li><p>Export your result with write_csv(). Call it “myfirstRoutput.csv”</p></li>
 </ol>
 </div>
@@ -424,7 +445,7 @@ summary {
 <li><p>Re-use the code from question 24 and adjust it slightly to have stacked bars of equal height, instead of stacked bars with different height. <em>HINT: position = “fill”</em></p></li>
 <li><p>Create a scatter plot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? <em>HINT: geom_point()</em></p></li>
 <li><p>All points are only segmented according to genotype, but no difference is made between treatments. Add within aesthetics (aes) that treatment is defined by color. <em>HINT: color …</em></p></li>
-<li><p>Treatments are defined with different colors but are all on top of each other. To make more clear. Add inside geom_point() that position has to be changed. This can be done with the statement position = position_dodge(1). The number (0-1) determines how much space there is between the respective columns within genotype. Try out different values to see how it makes the graph more readable.</p></li>
+<li><p>Treatments are defined with different colors but are all on top of each other. To make more clear. Add inside geom_point() that position has to be changed. This can be done with the statement position = position_dodge(1). The number (0-1) determines how much space there is between the respective columns within genotype. Try out different values to see how it makes the graph more aesthetic/readable.</p></li>
 <li><p>Besides colors and fills, shapes can also be used as an aesthetic to define categorical groups. Add shape = gender within aesthetics to see what happens. What can you see? How can the visibility be improved? See facet_wrap() or facet_grid() and try out.</p></li>
 </ol>
 </div>

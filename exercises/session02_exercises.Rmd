@@ -99,25 +99,25 @@ Species (7)
 
 ## READR and DPLYR
 
-11. Import readr and dplyr packages
+1. Import readr and dplyr packages
 
 ```{r}
 
 ```
 
-12. Import dataset tidy.csv and store it in an object called "mydata" *HINT: read_csv()*
+2. Import dataset tidy.csv and store it in an object called "mydata" *HINT: read_csv()*
 
 ```{r}
 
 ```
 
-13. Check out mydata, how many rows and columns are there?
+3. Check out mydata, how many rows and columns are there?
 
 ```{r}
 
 ```
 
-14.	Genotype, treatment and gender should be categorical variables with some order (instead of the default alphabetical order). Transform these into order “WT”,”GM” for genotype, “CTR_X”,”TRT_X”,”TRT_Y”,”TRT_Z” for treatment and “M”,”F” for gender. Store it again in object "mydata". *HINT: mutate() and factor(..., levels = c(...)).*
+4. Genotype, treatment and gender should be categorical variables with some order (instead of the default alphabetical order). Transform these into order “WT”,”GM” for genotype, “CTR_X”,”TRT_X”,”TRT_Y”,”TRT_Z” for treatment and “M”,”F” for gender. Store it again in object "mydata". *HINT: mutate() and factor(..., levels = c(...)).*
 
 Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
@@ -125,25 +125,25 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 ```
 
-15.	Continue from mydata from question 14. Variables are unnormalized. Create three new columns with the variables multiplied by the norm column. Name the new columns var_x_norm, var_y_norm and var_z_norm. Store in an object called “mydata_t”. *HINT: mutate()*
+5. Continue from mydata from question 14. Variables are unnormalized. Create three new columns with the variables multiplied by the norm column. Name the new columns var_x_norm, var_y_norm and var_z_norm. Store in an object called “mydata_t”. *HINT: mutate()*
 
 ```{r}
 
 ```
 
-16.	Continue from mydata_t. Filter values that only contain male (gender == “M”) samples, store this in an object called “mymales”. Continue working with mymales untill question 20. *HINT: filter()*
+6. Continue from mydata_t. Filter values that only contain male (gender == “M”) samples, store this in an object called “mymales”. Continue working with mymales untill question 20. *HINT: filter()*
 
 ```{r}
 
 ```
 
-17.	Continue from mymales. The summarise() function is very useful for collapsing a large dataset into a single observation. Summarise the mymales dataset to find the following columns / values: min_value_x_norm (minimum value for var_x_norm) and mean_value_x_norm (mean value for value_x_norm). *HINT: min() and mean() *
+7. Continue from mymales. The summarise() function is very useful for collapsing a large dataset into a single observation. Summarise the mymales dataset to find the following columns / values: min_value_x_norm (minimum value for var_x_norm) and mean_value_x_norm (mean value for value_x_norm). *HINT: min() and mean() *
 
 ```{r}
 
 ```
 
-18.	In combination with group_by() function, you can summarise the value of interest by each group. For example, grouping according to genotype, you can find the values of question 17 for each genotype. *HINT: %>% makes the line of execution more readable.* 
+8. In combination with group_by() function, you can summarise the value of interest by each group. For example, grouping according to genotype, you can find the values of question 17 for each genotype. *HINT: %>% makes the line of execution more readable.* 
 
 Example 1:
 
@@ -165,13 +165,19 @@ summarise(group_by(data, x), ...)
 
 ```
 
-19.	Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in an object called “mysummary”
+9. Grouping can be performed on multiple levels. Try to find values of question 17 when grouping for genotype and then treatment. Summaries can also be stored in an object. Store this in an object called “mysummary”
 
 ```{r}
 
 ```
 
-20.	Export your result with write_csv(). Call it “myfirstRoutput.csv”
+10.	Export your result with write_csv(). Call it “myfirstRoutput.csv”
+
+```{r}
+
+```
+
+11. So far you have checked the values of question 17 for only "var_x_norm". Repeat this for each variable ("var_x_norm","var_y_norm","var_z_norm") the values of question 17 when grouping for genotype and then treatment.
 
 ```{r}
 
@@ -179,61 +185,61 @@ summarise(group_by(data, x), ...)
 
 ## GGPLOT2
 
-21.	Work with mydata_t from the previous segment. Create a boxplot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? What can you conclude from this? *HINT: ggplot(data, aes(x = x, y = y) + geom_boxplot()*
+1. Work with mydata_t from the previous segment. Create a boxplot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? What can you conclude from this? *HINT: ggplot(data, aes(x = x, y = y) + geom_boxplot()*
 
 ```{r}
 
 ```
 
-22.	The previous graph takes a general view of var_x_norm according to genotype. Add within aesthetics (aes) that treatment is defined by fill. *HINT: fill = ...*
+2. The previous graph takes a general view of var_x_norm according to genotype. Add within aesthetics (aes) that treatment is defined by fill. *HINT: fill = ...*
 
 ```{r}
 
 ```
 
-23.	Re-use the code from question 22 and adjust it slightly so you have violinplots instead of boxplots.
+3. Re-use the code from question 22 and adjust it slightly so you have violinplots instead of boxplots.
 
 ```{r}
 
 ```
 
-24.	Re-use the code from question 22 and adjust it slightly so you have stacked bars instead of boxplots. *HINT: geom_col()*
+4. Re-use the code from question 22 and adjust it slightly so you have stacked bars instead of boxplots. *HINT: geom_col()*
 
 ```{r}
 
 ```
 
-25.	Re-use the code from question 24 and adjust it slightly to have side-by-side bars instead of stacked bars. *HINT: position = “dodge” inside geom_col()*
+5. Re-use the code from question 24 and adjust it slightly to have side-by-side bars instead of stacked bars. *HINT: position = “dodge” inside geom_col()*
 
 ```{r}
 
 ```
 
-26.	Re-use the code from question 24 and adjust it slightly to have stacked bars of equal height, instead of stacked bars with different height. *HINT: position = “fill”*
+6. Re-use the code from question 24 and adjust it slightly to have stacked bars of equal height, instead of stacked bars with different height. *HINT: position = “fill”*
 
 ```{r}
 
 ```
 
-27.	Create a scatter plot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? *HINT: geom_point()*
+7. Create a scatter plot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? *HINT: geom_point()*
 
 ```{r}
 
 ```
 
-28.	All points are only segmented according to genotype, but no difference is made between treatments. Add within aesthetics (aes) that treatment is defined by color. *HINT: color ...*
+8. All points are only segmented according to genotype, but no difference is made between treatments. Add within aesthetics (aes) that treatment is defined by color. *HINT: color ...*
 
 ```{r}
 
 ```
 
-29.	Treatments are defined with different colors but are all on top of each other. To make more clear. Add inside geom_point() that position has to be changed. This can be done with the statement position = position_dodge(1). The number (0-1) determines how much space there is between the respective columns within genotype. Try out different values to see how it makes the graph more aesthetic/readable.
+9. Treatments are defined with different colors but are all on top of each other. To make more clear. Add inside geom_point() that position has to be changed. This can be done with the statement position = position_dodge(1). The number (0-1) determines how much space there is between the respective columns within genotype. Try out different values to see how it makes the graph more aesthetic/readable.
 
 ```{r}
 
 ```
 
-30.	Besides colors and fills, shapes can also be used as an aesthetic to define categorical groups. Add shape = gender within aesthetics to see what happens. What can you see? How can the visibility be improved? See facet_wrap() or facet_grid() and try out.
+10. Besides colors and fills, shapes can also be used as an aesthetic to define categorical groups. Add shape = gender within aesthetics to see what happens. What can you see? How can the visibility be improved? See facet_wrap() or facet_grid() and try out.
 
 ```{r}
 
