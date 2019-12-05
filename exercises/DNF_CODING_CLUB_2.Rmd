@@ -1,6 +1,6 @@
 ---
 title: "Session #2 - Exercises"
-author: "Adrian C Lo and Ludovic T"
+author: "Adrian C Lo and Ludovic Telley"
 date: "12/4/2019"
 output: html_document
 ---
@@ -10,46 +10,52 @@ There are 3 segments with around 10 questions each that increase in difficulty. 
 
 The hints will guide you what functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
 
-
-[Also check](https://juba.github.io/tidyverse/10-dplyr.html) sections 10.2 and 8.3 for additional help.
+Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specifically sections 8.3 and 10.2 for additional help.
 
 # Quick Reminder
 
+[DNF-UNIL Github page](https://github.com/DNF-UNIL/Introduction_to_bioinformatics)
 
-[First DNF coding club session resource link](https://dnf-unil.github.io/dnfcodingclub/06_11_19_session.html)
+Click [here](https://dnf-unil.github.io/dnfcodingclub/06_11_19_session.html) for the resources from the first DNF coding club session.
 
-R is a console, you can type all the calculation you want and see the result
+R is a console where you can type all the calculations you want and see the result
 
 ```{r}
-1+1
-10/5
+
+1 + 1
+10 / 5
 2^5
-1*5
+1 * 5
+
 ```
 
 You can assign value or text to an object 
+
 ```{r}
-a<-2
-b<-3
+a <- 2
+b <- 3
 
-a+b
+a + b
 
-c<-"text"
+c <- "text"
+c
 
 ```
 
-
-
-You can call a function ex : do the sum
+You can call a function. E.g, to do a sum
 
 ```{r}
-?sum
+# ?sum
 
 sum(1, 2, 3, 4, 5)
+
 ```
 
 If you need help about a function
+
 ```{r}
+
+# ?c()
 
 ```
 
@@ -57,18 +63,19 @@ If you need help about a function
 
 ## BASIC OPERATIONS
 
-1.	Create a vector x containing the elements 0,1,2,3,4,5,6. Create a vector y containing the elements 0,1,2,-3,4,-5,6,10,200,300. 
+1. Create a vector x containing the elements 0,1,2,3,4,5,6. Create a vector y containing the elements 0,1,2,-3,4,-5,6,10,200,300. 
 
-  **HINT: c()**
+**HINT: c()**
 
 ```{r}
 #
 ```
 
 2. Write an if-else statement to check the first element of x. If it is zero, output “This is good”, else output “This is bad”. 
-**HINT: print() and logical operator ==*
 
-[Also check](https://www.datamentor.io/r-programming/if-else-statement/)
+**HINT: print() and logical operator ==**
+
+[Also check](https://www.datamentor.io/r-programming/if-else-statement/) here for extra help.
 
 ```{r}
 #
@@ -76,8 +83,7 @@ If you need help about a function
 
 3. Write a for-loop that iterates over each element of vector x using print()
 
-[Also check](https://www.guru99.com/r-for-loop.html)
-
+[Also check](https://www.guru99.com/r-for-loop.html) here for extra help.
 
 ```{r}
 #
@@ -85,7 +91,7 @@ If you need help about a function
 
 4. Write a for-loop that iterates over each element of vector x and print the cube of each value.
 
-  **HINT: 2^3 = cube of 2 = 8**
+**HINT: 2^3 = cube of 2 = 8**
 
 ```{r}
 #
@@ -93,7 +99,7 @@ If you need help about a function
 
 5.	Write a for-loop that makes a right angle triangle pattern where each row is a number x repeating itself x times. 
 
-  **HINT: rep()**
+**HINT: rep()**
 
 The pattern is:
 
@@ -106,7 +112,7 @@ The pattern is:
 4444
 
 ```{r}
-
+#
 ```
 
 6. Write a for-loop that iterates over the inbuilt iris dataset that evaluates the number of characters in the column name. The output should be like: 
@@ -121,13 +127,15 @@ Petal.Width (11)
 
 Species (7)
 
-  **HINT: paste0() and nchar()**
+**HINT: paste0() and nchar()**
 
 ```{r}
 #
 ```
 
-7. Write a for-loop that iterates over the inbuilt iris dataset ad outputs for each flower/row as output: Flower **1** is a setosa and has a Sepal.Length of **5.1**
+7. Write a for-loop that iterates over the inbuilt iris dataset ad outputs for each flower/row as output: 
+
+Flower **1** is a **setosa** and has a Sepal.Length of **5.1**
 
 ```{r}
 #
@@ -135,7 +143,7 @@ Species (7)
 
 8. Write a for-loop that iterates over each element of vector y and only outputs the positive numbers, i.e. ignoring the negative numbers.
 
-  **HINT: next()**
+**HINT: next()**
 
 ```{r}
 #
@@ -143,7 +151,7 @@ Species (7)
 
 9. Write a for-loop that iterates over each element of vector y, till it reaches value 10. If it reaches value 10, stop the for-loop.
 
-  **HINT: break()**
+**HINT: break()**
 
 ```{r}
 #
@@ -158,7 +166,7 @@ Everything else, output the original value.
 
 ## READR and DPLYR
 
-1. Import readr and dplyr packages
+1. Import readr and dplyr packages/libraries
 
 ```{r}
 #
@@ -166,7 +174,7 @@ Everything else, output the original value.
 
 2. Import dataset tidy.csv and store it in an object called "mydata"
 
-  **HINT: read_csv()**
+**HINT: read_csv()**
 
 ```{r}
 #
@@ -180,7 +188,7 @@ Everything else, output the original value.
 
 4. Genotype, treatment and gender should be categorical variables with some order (instead of the default alphabetical order). Transform these into order “WT”,”GM” for genotype, “CTR_X”,”TRT_X”,”TRT_Y”,”TRT_Z” for treatment and “M”,”F” for gender. Store it again in object "mydata".
 
-  **HINT: mutate() and factor(..., levels = c(...)).**
+**HINT: mutate() and factor(..., levels = c(...)).**
 
 Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
@@ -190,7 +198,7 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 5. Continue from mydata from question 4. Variables are unnormalized. Create three new columns with the variables multiplied by the norm column. Name the new columns var_x_norm, var_y_norm and var_z_norm. Store in an object called “mydata_t”. 
 
-  **HINT: mutate()**
+**HINT: mutate()**
 
 ```{r}
 #
@@ -198,7 +206,7 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 6. Continue from mydata_t. Filter values that only contain male (gender == “M”) samples, store this in an object called “mymales”. Continue working with mymales untill question 10. 
 
-  **HINT: filter()**
+**HINT: filter()**
 
 ```{r}
 #
@@ -206,7 +214,7 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 7. Continue from mymales. The summarise() function is very useful for collapsing a large dataset into a single observation. Summarise the mymales dataset to find the following columns / values: min_value_x_norm (minimum value for var_x_norm) and mean_value_x_norm (mean value for value_x_norm). 
 
-  **HINT: min() and mean() **
+**HINT: min() and mean() **
 
 ```{r}
 #
@@ -214,7 +222,7 @@ Example: factor(class, levels = c(“level_1”,”level_2”,”level_3”))
 
 8. In combination with group_by() function, you can summarise the value of interest by each group. For example, grouping according to genotype, you can find the values of question 7 for each genotype. 
 
-  **HINT: %>% makes the line of execution more readable.**
+**HINT: %>% makes the line of execution more readable.**
 
 Example 1:
 
@@ -245,7 +253,7 @@ summarise(group_by(data, x), ...)
 10.	Export your result with write_csv(). Call it “myfirstroutput.csv”
 
 ```{r}
-3
+#
 ```
 
 11. So far you have checked the values of question 7 for only "var_x_norm". Repeat this for each variable ("var_x_norm","var_y_norm","var_z_norm") the values of question 17 when grouping for genotype and then treatment.
@@ -258,7 +266,7 @@ summarise(group_by(data, x), ...)
 
 1. Work with mydata_t from the previous segment. Create a boxplot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like? What can you conclude from this?
 
-  **HINT: ggplot(data, aes(x = x, y = y) + geom_boxplot()**
+**HINT: ggplot(data, aes(x = x, y = y) + geom_boxplot()**
 
 ```{r}
 #
@@ -266,7 +274,7 @@ summarise(group_by(data, x), ...)
 
 2. The previous graph takes a general view of var_x_norm according to genotype. Add within aesthetics (aes) that treatment is defined by fill. 
 
-  **HINT: fill = ...**
+**HINT: fill = ...**
 
 ```{r}
 #
@@ -280,7 +288,7 @@ summarise(group_by(data, x), ...)
 
 4. Re-use the code from question 2 and adjust it slightly so you have stacked bars instead of boxplots. 
 
-  **HINT: geom_col()**
+**HINT: geom_col()**
 
 ```{r}
 #
@@ -288,7 +296,7 @@ summarise(group_by(data, x), ...)
 
 5. Re-use the code from question 4 and adjust it slightly to have side-by-side bars instead of stacked bars. 
 
-  **HINT: position = “dodge” inside geom_col()**
+**HINT: position = “dodge” inside geom_col()**
 
 ```{r}
 #
@@ -296,7 +304,7 @@ summarise(group_by(data, x), ...)
 
 6. Re-use the code from question 4 and adjust it slightly to have stacked bars of equal height, instead of stacked bars with different height. 
 
-  **HINT: position = “fill”**
+**HINT: position = “fill”**
 
 ```{r}
 #
@@ -304,7 +312,7 @@ summarise(group_by(data, x), ...)
 
 7. Create a scatter plot with on the y-axis var_x_norm and on the x-axis genotype. How does your plot look like?
 
-  **HINT: geom_point()**
+**HINT: geom_point()**
 
 ```{r}
 #
@@ -312,7 +320,7 @@ summarise(group_by(data, x), ...)
 
 8. All points are only segmented according to genotype, but no difference is made between treatments. Add within aesthetics (aes) that treatment is defined by color. 
 
-  **HINT: color ...**
+**HINT: color = ...**
 
 ```{r}
 #
