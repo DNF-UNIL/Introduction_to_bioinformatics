@@ -491,18 +491,18 @@ ggplot(mydata, aes(genotype, var_x_norm, color = treatment)) + geom_point(positi
 
 ```{r}
 ggplot(mydata, aes(genotype, var_x_norm, color = treatment)) + 
-    geom_point() +
+    geom_point(position = position_dodge(0.30)) +
     facet_wrap(~gender)
 ```
 
 ```{r}
 ggplot(mydata, aes(genotype, var_x_norm, color = treatment)) + 
-    geom_point() +
+    geom_point(position = position_dodge(0.30)) +
     facet_grid(gender~.)
 ```
 
 ```{r}
 ggplot(mydata, aes(genotype, var_x_norm, color = treatment)) + 
-    geom_point() +
+    geom_point(position = position_dodge(0.30)) +
     facet_grid(.~gender)
 ```
