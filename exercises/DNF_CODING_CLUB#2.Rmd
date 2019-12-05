@@ -16,7 +16,7 @@ The hints will guide you what functions are required. You can access further inf
 # Quick Reminder
 
 
-[First DNF coding club session ressource link](https://dnf-unil.github.io/dnfcodingclub/06_11_19_session.html)
+[First DNF coding club session resource link](https://dnf-unil.github.io/dnfcodingclub/06_11_19_session.html)
 
 R is a console, you can type all the calculation you want and see the result
 
