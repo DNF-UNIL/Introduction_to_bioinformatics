@@ -14,6 +14,8 @@ Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specific
 
 # Quick Reminder
 
+For additional (free) learning, visit [this webpage](https://www.unil.ch/ci/fr/home/menuinst/catalogue-de-services/support-et-formation/e-learning.html)
+
 [DNF-UNIL Github page](https://github.com/DNF-UNIL/Introduction_to_bioinformatics)
 
 Click [here](https://dnf-unil.github.io/dnfcodingclub/06_11_19_session.html) for the resources from the first DNF coding club session.
