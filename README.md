@@ -16,12 +16,6 @@ Every module will take approximately 1h30, with intermittent breaks of 15 min.
 
 The session is open to anyone with or without prior technical knowledge. These activities are designed to get familiar and used to these skills in a friendly and interactive environment. Only requirement is to bring your own laptop with wifi connection.
 
-If you would like to participate to the coding session, please fill in this formulary with your data so we have a fair estimate on the number of participants (for logistics and administrative purposes). 
-
-https://forms.gle/g1xCVTUHT7gY9gMn7
-
-We look forward to your all out enthusiastic presence!
-
 ### Server Connection
 http://130.223.196.101:8080
 
@@ -66,7 +60,7 @@ https://juba.github.io/tidyverse/02-prise_en_main.html
 
 #### EBImage
 
-It is necessary to first install in the terminal this dependency
+It is necessary to first install this dependency in the terminal 
 
 ```bash
 sudo apt-get update
@@ -102,3 +96,5 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
+
+## DNF Coding Club Session #02 (06/11/2019)
