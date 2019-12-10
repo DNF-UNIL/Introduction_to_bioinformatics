@@ -82,8 +82,9 @@ BiocManager::install("EBImage")
 ```
 
 ### Shiny
-
 by Adrian
+
+https://github.com/DNF-UNIL/Introduction_to_bioinformatics/blob/master/presentations/2019.11.06_shiny_introduction.pptx
 
 ## How to install Docker
 
