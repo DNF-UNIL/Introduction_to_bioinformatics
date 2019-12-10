@@ -1,6 +1,6 @@
 # Introduction to bioinformatics 
 
-## DNF Coding Club Session #01 (06/11/2019)
+# DNF Coding Club Session #01 (06/11/2019)
 
 ### Welcome
 As you might know, some people in our department are encouraging the use of new technologies for data analysis, visualisation and database scraping. With the support of the PIs, we are happy to announce the start of the DNF coding sessions (i.e. “DNF coding club”) that will provide the basics on daily research technologies such as bash, R, Jupyter and Shiny. 
@@ -58,7 +58,7 @@ by L. Telley
 
 https://juba.github.io/tidyverse/02-prise_en_main.html
 
-#### EBImage
+### EBImage
 
 It is necessary to first install this dependency in the terminal 
 
@@ -80,7 +80,7 @@ by Adrian
 
 https://github.com/DNF-UNIL/Introduction_to_bioinformatics/blob/master/presentations/2019.11.06_shiny_introduction.pptx
 
-## How to install Docker
+### How to install Docker
 
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
@@ -97,7 +97,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 
-## DNF Coding Club Session #02 (04/12/2019)
+# DNF Coding Club Session #02 (04/12/2019)
 
 ### Welcome
 The next coding session will take place in the Petit Auditoire on Wednesday December 4 from 13:00 to 17:30. In this session, we have the additional contribution of Tilmann and Romain. 
