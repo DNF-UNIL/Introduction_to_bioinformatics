@@ -97,4 +97,23 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 
-## DNF Coding Club Session #02 (06/11/2019)
+## DNF Coding Club Session #02 (04/12/2019)
+
+### Welcome
+The next coding session will take place in the Petit Auditoire on Wednesday December 4 from 13:00 to 17:30. In this session, we have the additional contribution of Tilmann and Romain. 
+
+The schedule will be the following:
+
+Theory:
+- Summary of the session
+- Showcase of Arduino Projects
+
+Practise:
+- Basics on bash and terminal
+- Basics of programming with R in Jupyter Notebooks
+- Machine Learning for pattern recognition (automatic cell extraction)
+
+Closure:
+- Apero and social dynamics
+
+The session is open to anyone regardless of prior technical knowledge. These activities are designed to become familiar and used to these skills in a friendly and interactive environment. Only requirement is to bring your own laptop with wifi connection.
