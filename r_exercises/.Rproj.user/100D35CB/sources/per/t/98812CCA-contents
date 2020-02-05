@@ -1,0 +1,36 @@
+---
+title: "Session #3 - Exercises"
+author: "Adrian C Lo"
+date: "2/5/2020"
+output: html_document
+---
+
+# base
+
+* bla
+
+* bla
+
+# readr
+
+```{r}
+
+library(readr)
+
+```
+
+# dplyr
+
+```{r}
+
+suppressPackageStartupMessages( library(dplyr) )
+
+```
+
+# ggplot2
+
+```{r}
+
+library(ggplot2)
+
+```
