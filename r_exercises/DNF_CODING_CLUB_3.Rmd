@@ -15,7 +15,7 @@ output: html_document
 
 ```{r}
 
-library(readr)
+suppressPackageStartupMessages( library(readr) )
 
 ```
 
@@ -31,6 +31,14 @@ suppressPackageStartupMessages( library(dplyr) )
 
 ```{r}
 
-library(ggplot2)
+suppressPackageStartupMessages( library(ggplot2) )
+
+```
+
+# rvest
+
+```{r}
+
+suppressPackageStartupMessages( library(rvest) )
 
 ```
