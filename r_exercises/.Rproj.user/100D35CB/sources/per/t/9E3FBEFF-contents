@@ -4,7 +4,6 @@ author: "Adrian C Lo and Ludovic Telley"
 date: "12/4/2019"
 output:
   pdf_document: default
-  html_document: default
 ---
 ## INSTRUCTIONS
 
