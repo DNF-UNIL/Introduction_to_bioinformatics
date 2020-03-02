@@ -1,0 +1,11 @@
+"0","babynames %>% 
+    filter(sex == ""M"") %>% 
+    filter(between(year,2000,2017)) %>% 
+    pull(name) %>% 
+    unique() %>% 
+    length()
+"
+"1","[1]"
+"1"," 30118"
+"1","
+"

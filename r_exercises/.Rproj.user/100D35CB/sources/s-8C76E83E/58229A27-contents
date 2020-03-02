@@ -27,14 +27,15 @@ There are several datasets available that we will import.
 ```{r}
 
 suppressPackageStartupMessages( library(readr) )
+suppressPackageStartupMessages( library(dplyr) )
 
 ```
 
-1. 
+1. Import the happiness dataset
 
 ```{r}
 
-happy <- read_csv("https://www.kaggle.com/unsdsn/world-happiness#2019.csv")
+happy <- read_csv("session#3/happiness_2019.csv")
 happy
 
 ```
@@ -312,7 +313,7 @@ suppressPackageStartupMessages( library(ggplot2) )
 
 ```
 
-### In the following questions, you will visualize the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
+### In the following questions, you will visualize the popularity of certain babynames as well as the number of births. This dataset can be found in the like-named {babynames} library.
 
 ```{r}
 
@@ -320,7 +321,17 @@ suppressPackageStartupMessages( library(babynames) )
 
 ```
 
-1. Plot the development of the name "Tristan" over time for each sex
+1. Plot the number of birth over time from the births dataset.
+
+```{r}
+
+births %>% 
+    ggplot(., aes(year, births)) + geom_line()
+
+```
+
+
+2. Plot the development of the name "Tristan" over time for each sex from the babynames dataset.
 
 ```{r}
 
@@ -332,7 +343,7 @@ babynames %>%
 
 ```
 
-2. Plot the development of the name "Mary" and "Noah" over time for each sex
+3. Plot the development of the name "Mary" and "Noah" over time for each sex. What can you say about the development of these names?
 
 ```{r}
 
@@ -341,6 +352,76 @@ babynames %>%
     ggplot(., aes(year, prop)) +
     geom_line() +
     facet_grid(name ~ sex)
+
+```
+
+4. Extract from the babynames dataset for each year, the number of unique names for boys and girls. Plot these over time side-by-side. What is the trend? Which sex has more diversified names? Any peculiar trends? 
+
+```{r}
+
+babynames %>% 
+    group_by(year, sex) %>% 
+    summarise(unique_names = n()) %>% 
+    ggplot(., aes(year, unique_names)) +
+    geom_line() +
+    facet_grid(. ~ sex)
+
+```
+
+### In the following questions, you will visualize the economic parameteres from the gapminder dataset. This dataset can be found in the like-named {gapminder} library.
+
+```{r}
+
+suppressPackageStartupMessages( library(gapminder) )
+
+```
+
+5. Plot the life expectancy for each continent from the year 2002 as individual points
+
+```{r}
+
+gapminder %>% 
+    filter(year == 2002) %>% 
+    ggplot(., aes(continent, lifeExp)) + 
+    geom_point()
+
+```
+
+6. Continue from the previous question: add some transparency in the dots and give each continent a different color.
+
+```{r}
+
+gapminder %>% 
+    filter(year == 2002) %>% 
+    ggplot(., aes(continent, lifeExp, color = continent)) + 
+    geom_point(alpha = 0.60)
+
+```
+
+7. Continue from the previous question: add a boxplot to the graph. Add it in such a way that the individual points will still be visible.
+
+```{r}
+
+gapminder %>% 
+    filter(year == 2002) %>% 
+    ggplot(., aes(continent, lifeExp, color = continent)) + 
+    geom_boxplot() +
+    geom_point(alpha = 0.60)
+
+```
+
+8. Continue from the previous question: Adjust the labels so they are more presentable. Change the title on the y-axis to "Life Expectancy", and the title on the x-axis to "Continent". Add a title "My colorful plot". Also add a caption with "made by {your name}". Finally, remove the legend title.
+
+```{r}
+
+gapminder %>% 
+    filter(year == 2002) %>% 
+    ggplot(., aes(continent, lifeExp, color = continent)) + 
+    geom_boxplot() +
+    geom_point(alpha = 0.60) +
+    labs(x = "Continent", y = "Life Expectancy", 
+         title = "My colorful plot", caption = "made by Adrian") +
+    theme(legend.title = element_blank())
 
 ```
 

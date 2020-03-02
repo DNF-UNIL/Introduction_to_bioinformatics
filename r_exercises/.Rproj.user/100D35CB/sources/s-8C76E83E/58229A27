@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1721783435",
     "id" : "58229A27",
-    "lastKnownWriteTime" : 1583167564,
-    "last_content_update" : 1583167564582,
+    "lastKnownWriteTime" : 1583169359,
+    "last_content_update" : 1583169359242,
     "path" : "~/GitHub/Introduction_to_bioinformatics/r_exercises/session#3/DNF_CODING_CLUB_3.Rmd",
     "project_path" : "session#3/DNF_CODING_CLUB_3.Rmd",
     "properties" : {
-        "cursorPosition" : "352,3",
+        "cursorPosition" : "349,0",
         "docOutlineVisible" : "1",
-        "scrollLine" : "333"
+        "scrollLine" : "344"
     },
     "read_only" : false,
     "read_only_alternatives" : [
