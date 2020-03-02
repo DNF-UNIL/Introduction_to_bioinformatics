@@ -32,9 +32,14 @@ suppressPackageStartupMessages( library(readr) )
 
 1. 
 
-# data manipulations \{dplyr\}
+```{r}
 
-## In this section, 2 different datasets will be explored: coronavirus and babynames
+happy <- read_csv("https://www.kaggle.com/unsdsn/world-happiness#2019.csv")
+happy
+
+```
+
+# data manipulations \{dplyr\}
 
 ```{r}
 
@@ -43,10 +48,11 @@ suppressPackageStartupMessages( library(tidyr) )
 
 ```
 
-In the following questions, you will perform exploratory analysis on the coronavirus. This dataset is contained in the like-named {coronavirus} library.
+### In the following questions, you will perform exploratory analysis on the coronavirus. This dataset is contained in the like-named {coronavirus} library.
 
 ```{r}
 
+# devtools::install_github("RamiKrispin/coronavirus")
 suppressPackageStartupMessages( library(coronavirus) )
 
 ```
@@ -150,7 +156,7 @@ coronavirus %>%
     summarise(cases = sum(cases)) %>% 
     
     # from {tidyr}: to have values put in separate columns
-    spread(key = "type", value = "cases") %>% 
+    pivot_wider(names_from = "type", values_from = "cases") %>% 
     mutate(recovered = ifelse(is.na(recovered), 0, recovered)) %>% 
     mutate(proportion = recovered / confirmed) %>% 
     filter(proportion > 0.60) %>% 
@@ -169,12 +175,12 @@ coronavirus %>%
     summarise(cases = sum(cases)) %>% 
     
     # from {tidyr}: to have values put in separate columns
-    spread(key = "type", value = "cases") %>% 
+    pivot_wider(names_from = "type", values_from = "cases") %>% 
     mutate(proportion = recovered / confirmed)
     
 ```
 
-In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
+### In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
 
 ```{r}
 
@@ -289,6 +295,15 @@ babynames %>%
 
 ```
 
+18. What is the popularity of your own name in 2017?
+
+```{r}
+
+babynames %>% 
+    filter(name == "Adrian" & year == 2017)
+
+```
+
 # data visualizations \{ggplot2\}
 
 ```{r}
@@ -297,6 +312,37 @@ suppressPackageStartupMessages( library(ggplot2) )
 
 ```
 
+### In the following questions, you will visualize the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
+
+```{r}
+
+suppressPackageStartupMessages( library(babynames) )
+
+```
+
+1. Plot the development of the name "Tristan" over time for each sex
+
+```{r}
+
+babynames %>% 
+    filter(name == "Tristan") %>% 
+    ggplot(., aes(year, prop)) +
+    geom_line() +
+    facet_wrap(~ sex)
+
+```
+
+2. Plot the development of the name "Mary" and "Noah" over time for each sex
+
+```{r}
+
+babynames %>% 
+    filter(name %in% c("Mary","Noah")) %>% 
+    ggplot(., aes(year, prop)) +
+    geom_line() +
+    facet_grid(name ~ sex)
+
+```
 
 # data mining \{rvest\}
 
