@@ -14,13 +14,13 @@ The hints will guide you what functions are required. You can access further inf
 
 Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specifically sections 8.3 and 10.2 for additional help.
 
-# \{base\}
+# basic operations \{base\}
 
 * bla
 
 * bla
 
-# \{readr\}
+# data import \{readr\}
 
 There are several datasets available that we will import.
 
@@ -32,7 +32,7 @@ suppressPackageStartupMessages( library(readr) )
 
 1. 
 
-# \{dplyr\}
+# data manipulations \{dplyr\}
 
 ```{r}
 
@@ -40,7 +40,7 @@ suppressPackageStartupMessages( library(dplyr) )
 
 ```
 
-# \{ggplot2\}
+# data visualizations \{ggplot2\}
 
 ```{r}
 
@@ -48,7 +48,7 @@ suppressPackageStartupMessages( library(ggplot2) )
 
 ```
 
-# \{rvest\}
+# data mining \{rvest\}
 
 ```{r}
 
