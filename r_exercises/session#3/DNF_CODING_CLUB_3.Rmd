@@ -34,9 +34,258 @@ suppressPackageStartupMessages( library(readr) )
 
 # data manipulations \{dplyr\}
 
+## In this section, 2 different datasets will be explored: coronavirus and babynames
+
 ```{r}
 
 suppressPackageStartupMessages( library(dplyr) )
+suppressPackageStartupMessages( library(tidyr) )
+
+```
+
+In the following questions, you will perform exploratory analysis on the coronavirus. This dataset is contained in the like-named {coronavirus} library.
+
+```{r}
+
+suppressPackageStartupMessages( library(coronavirus) )
+
+```
+
+1. Worldwide, how many confirmed cases of coronavirus have been found?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "confirmed") %>% 
+    summarise(worldwide_confirmed = sum(cases))
+
+```
+
+2. Worldwide, how many people died from coronavirus?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "death") %>% 
+    summarise(worldwide_confirmed = sum(cases))
+
+```
+
+3. Which are the top 5 countries with the most cases of confirmed coronavirus?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "confirmed") %>% 
+    group_by(Country.Region) %>% 
+    summarise(confirmed = sum(cases)) %>% 
+    arrange(desc(confirmed)) %>% 
+    head(5)
+
+```
+
+4. From which country is the last confirmed case?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "confirmed") %>% 
+    arrange(desc(date)) %>% 
+    head(1)
+
+```
+
+5. From which country were the latest recovered cases?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "recovered") %>% 
+    arrange(desc(date)) %>% 
+    head(1)
+
+```
+
+6. When and where were the most confirmed cases detected on a single day?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "confirmed") %>% 
+    arrange(desc(cases)) %>% 
+    head(1)
+
+```
+
+7. Were there any false positive confirmed cases?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "confirmed") %>% 
+    filter(cases < 0)
+
+```
+
+8. Which are the top 3 countries that have more than 20 deaths?
+
+```{r}
+
+coronavirus %>% 
+    filter(type == "death") %>% 
+    group_by(Country.Region) %>% 
+    summarise(death = sum(cases)) %>% 
+    filter(death > 20) %>% 
+    arrange(desc(death))
+
+```
+
+9. How many countries have a recovered-confirmed ratio of more than 0.60?
+
+```{r}
+
+coronavirus %>% 
+    filter(type %in% c("confirmed", "recovered")) %>% 
+    group_by(Country.Region, type) %>% 
+    summarise(cases = sum(cases)) %>% 
+    
+    # from {tidyr}: to have values put in separate columns
+    spread(key = "type", value = "cases") %>% 
+    mutate(recovered = ifelse(is.na(recovered), 0, recovered)) %>% 
+    mutate(proportion = recovered / confirmed) %>% 
+    filter(proportion > 0.60) %>% 
+    arrange(desc(proportion))
+
+```
+
+10. What is the recovery-confirmed ratio for Italy?
+
+```{r}
+
+coronavirus %>% 
+    filter(Country.Region == "Italy") %>% 
+    filter(type %in% c("confirmed", "recovered")) %>% 
+    group_by(type) %>% 
+    summarise(cases = sum(cases)) %>% 
+    
+    # from {tidyr}: to have values put in separate columns
+    spread(key = "type", value = "cases") %>% 
+    mutate(proportion = recovered / confirmed)
+    
+```
+
+In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
+
+```{r}
+
+suppressPackageStartupMessages( library(babynames) )
+
+```
+
+12. What is the proportion of female babies that are called "Anna" in 1880 and 2017?
+
+```{r}
+
+babynames %>% 
+    filter(sex == "F" & name == "Anna") %>% 
+    filter(year %in% c(1880,2017))
+
+```
+
+13. From 1880-1900, which was the most popular name for boys and girls?
+
+```{r}
+
+babynames %>% 
+    filter(between(year, 1880, 1900)) %>% 
+    group_by(name, sex) %>% 
+    summarise(n = sum(n)) %>% 
+    arrange(desc(n)) %>% 
+    group_by(sex) %>% 
+    slice(1)
+
+```
+
+14. From 1880-1900, which was the least popular name for boys and girls?
+
+```{r}
+
+babynames %>% 
+    filter(between(year, 1880, 1900)) %>% 
+    group_by(name, sex) %>% 
+    summarise(n = sum(n)) %>% 
+    arrange(n) %>% 
+    group_by(sex) %>% 
+    slice(1)
+
+```
+
+15. From 2000-2017, which was the most popular name for boys and girls?
+
+```{r}
+
+babynames %>% 
+    filter(between(year, 2000, 2017)) %>% 
+    group_by(name, sex) %>% 
+    summarise(n = sum(n)) %>% 
+    arrange(desc(n)) %>% 
+    group_by(sex) %>% 
+    slice(1)
+
+```
+
+16. From 2000-2017, which was the least popular name for boys and girls?
+
+```{r}
+
+babynames %>% 
+    filter(between(year, 2000, 2017)) %>% 
+    group_by(name, sex) %>% 
+    summarise(n = sum(n)) %>% 
+    arrange(n) %>% 
+    group_by(sex) %>% 
+    slice(1)
+
+```
+
+15. For girls, what were the most popular name in 1880, 1917, 1943 and 2017?
+
+```{r}
+
+babynames %>% 
+    filter(sex == "F") %>% 
+    filter(year %in% c(1880,1917,1943,2017)) %>% 
+    group_by(year,name) %>% 
+    summarise(n = sum(n)) %>% 
+    ungroup() %>% arrange(year, desc(n)) %>% 
+    group_by(year) %>% 
+    slice(1)
+
+```
+
+16. How many different boy names were there between 1880-1900?
+
+```{r}
+
+babynames %>% 
+    filter(sex == "M") %>% 
+    filter(between(year,1880,1900)) %>% 
+    pull(name) %>% 
+    unique() %>% 
+    length()
+
+```
+
+17. How many different boy names were there between 2000-2017? Did we diversify compared to the previous era?
+
+```{r}
+
+babynames %>% 
+    filter(sex == "M") %>% 
+    filter(between(year,2000,2017)) %>% 
+    pull(name) %>% 
+    unique() %>% 
+    length()
 
 ```
 
@@ -47,6 +296,7 @@ suppressPackageStartupMessages( library(dplyr) )
 suppressPackageStartupMessages( library(ggplot2) )
 
 ```
+
 
 # data mining \{rvest\}
 
