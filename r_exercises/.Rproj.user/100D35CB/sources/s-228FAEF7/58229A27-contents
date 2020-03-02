@@ -1,0 +1,57 @@
+---
+title: "Session #3 - Exercises"
+author: "Adrian C Lo"
+date: "2/5/2020"
+output: 
+  pdf_document: default
+---
+
+# INSTRUCTIONS
+
+There are 3 segments with around 10 questions each that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
+
+The hints will guide you what functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
+
+Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specifically sections 8.3 and 10.2 for additional help.
+
+# \{base\}
+
+* bla
+
+* bla
+
+# \{readr\}
+
+There are several datasets available that we will import.
+
+```{r}
+
+suppressPackageStartupMessages( library(readr) )
+
+```
+
+1. 
+
+# \{dplyr\}
+
+```{r}
+
+suppressPackageStartupMessages( library(dplyr) )
+
+```
+
+# \{ggplot2\}
+
+```{r}
+
+suppressPackageStartupMessages( library(ggplot2) )
+
+```
+
+# \{rvest\}
+
+```{r}
+
+suppressPackageStartupMessages( library(rvest) )
+
+```

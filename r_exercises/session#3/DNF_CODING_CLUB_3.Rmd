@@ -22,11 +22,15 @@ Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specific
 
 # \{readr\}
 
+There are several datasets available that we will import.
+
 ```{r}
 
 suppressPackageStartupMessages( library(readr) )
 
 ```
+
+1. 
 
 # \{dplyr\}
 
