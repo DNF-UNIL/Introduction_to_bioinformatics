@@ -1,16 +1,16 @@
 ---
 title: "Session #3 - Exercises"
 author: "Adrian C Lo"
-date: "2/5/2020"
+date: "04/03/2020"
 output: 
   pdf_document: default
 ---
 
 # INSTRUCTIONS
 
-There are 3 segments with around 10 questions each that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
+There are different segment with emphasis on one part of the data process, each covering about 10 questions that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
 
-The hints will guide you what functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
+Cheatsheets are provided where you can find clues for solving the questions. In more difficult cases, actual hints will be given as to which functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
 
 Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specifically sections 8.3 and 10.2 for additional help.
 
@@ -35,7 +35,7 @@ suppressPackageStartupMessages( library(dplyr) )
 
 ```{r}
 
-happy <- read_csv("session#3/happiness_2019.csv")
+happy <- read_csv("happiness_2019.csv", col_types = cols())
 happy
 
 ```
@@ -46,6 +46,7 @@ happy
 
 suppressPackageStartupMessages( library(dplyr) )
 suppressPackageStartupMessages( library(tidyr) )
+suppressPackageStartupMessages( library(lubridate) )
 
 ```
 
@@ -179,6 +180,25 @@ coronavirus %>%
     pivot_wider(names_from = "type", values_from = "cases") %>% 
     mutate(proportion = recovered / confirmed)
     
+```
+
+11. How many confirmed, recovered and dead cases were there in only the month February?
+
+```{r}
+
+coronavirus %>% 
+    filter(between(date, as.Date("2020-02-01"), as.Date("2020-02-29"))) %>% 
+    group_by(type) %>% 
+    summarise(cases_in_february = sum(cases))
+
+# alternatively
+
+coronavirus %>% 
+    # specific date functions are in the {lubridate} package
+    filter(month(date) == 2) %>% 
+    group_by(type) %>% 
+    summarise(cases_in_february = sum(cases))
+
 ```
 
 ### In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
