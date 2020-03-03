@@ -624,6 +624,26 @@ coronavirus %>%
 
 ```
 
+8. Plot the log10 number of death cases by coronavirus on the world map.
+
+```{r}
+
+world_map <- map_data("world")
+
+world_death <- coronavirus %>% 
+  filter(type == "death") %>% 
+  group_by(Country.Region) %>% 
+  summarise(death_cases = sum(cases)) %>% 
+  arrange(desc(death_cases))
+  
+merged_map <- left_join(world_map, world_death, by = c("region" = "Country.Region"))
+
+ggplot(merged_map, aes(long, lat, group = group)) + 
+  geom_polygon(aes(fill = log10(death_cases)), color = "white") +
+  scale_fill_viridis(option = "magma")
+
+```
+
 ### In the following questions, you will visualize the popularity of certain babynames as well as the number of births. This dataset can be found in the like-named {babynames} library.
 
 ```{r}

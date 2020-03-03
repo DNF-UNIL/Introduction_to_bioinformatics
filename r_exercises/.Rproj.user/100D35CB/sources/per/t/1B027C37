@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583248821025.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2929715711",
+    "id" : "1B027C37",
+    "lastKnownWriteTime" : 1583251397,
+    "last_content_update" : 1583251414133,
+    "path" : "~/GitHub/Introduction_to_bioinformatics/_others/DNF_CODING_CLUB_3_solutions.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "632,31",
+        "scrollLine" : "615"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
