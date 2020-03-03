@@ -8,7 +8,7 @@ output:
 
 # INSTRUCTIONS
 
-There are different segment with emphasis on one part of the data process, each covering questions that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
+There are different segment with emphasis on data manipulation and visualization, each covering questions that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
 
 Cheatsheets are provided where you can find clues for solving the questions. In more difficult cases, actual hints will be given as to which functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
 
@@ -29,6 +29,72 @@ mtcars %>%
   group_by(cyl) %>% 
   summarise(hp = mean(hp))
 ```
+
+The main dataset that we will be exploring the coronavirus dataset, which comes from the like-named {coronavirus} library. To showcase that ggplot2 can also be used to visualize data on the world map. For this, let us walk through this example.
+
+# EXAMPLE: coronavirus over the world during the last 24 hours
+
+First, we install/upload the necessary packages. The {coronavirus} package provides an up-to-date dataset of confirmed, recovered and dead cases of coronavirus.
+
+```{r}
+
+devtools::install_github("RamiKrispin/coronavirus")
+suppressPackageStartupMessages( library(coronavirus) )
+suppressPackageStartupMessages( library(tidyverse) )
+suppressPackageStartupMessages( library(viridis) ) # install.packages("viridis")
+
+```
+
+We load in the data. And make some minor adjustments, for consistency with other packages.
+
+```{r}
+coronavirus
+
+coronavirus <- coronavirus %>% 
+  mutate(Country.Region = case_when(
+    Country.Region == "US" ~ "USA",
+    Country.Region %in% c("Mainland China","Macau","Hong Kong") ~ "China",
+    Country.Region == "North Macedonia" ~ "Macedonia",
+    TRUE ~ as.character(Country.Region)
+  ))
+
+max(coronavirus$date) # check whether the dataset is up to date (i.e. yesterday)
+```
+
+With {ggplot2}, we can construct the world map. This map is constructed through a dataset "world" that contains all the longitudes and latitudes of all the country boundaries. In the code below we construct an ordinary world map. 
+
+```{r}
+
+suppressPackageStartupMessages( library(maps) )
+suppressPackageStartupMessages( library(ggplot2) )
+
+world_map <- map_data("world")
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "lightgray", color = "white")
+
+```
+
+This world map can now  be filled with more statistical information. Let's augment it with information on the number of confirmed cases yesterday. 
+
+```{r}
+
+yesterday <- coronavirus %>% 
+  filter(date == max(date)) %>% # get only data from yesterday
+  filter(type == "confirmed") %>% # only confirmed cases
+  select(Country.Region, cases) %>%
+  group_by(Country.Region) %>%
+  summarise(confirmed_cases = sum(cases)) %>%
+  arrange(desc(confirmed_cases))
+
+merged_map <- left_join(world_map, yesterday, by = c("region" = "Country.Region"))
+
+ggplot(merged_map, aes(long, lat, group = group)) + 
+  geom_polygon(aes(fill = confirmed_cases), color = "white") +
+  scale_fill_viridis(option = "magma")
+
+```
+
+The world map now shows the new confirmed cases from only yesterday. Fascinating, right? Now it is your turn, to explore this (and other) datasets with {dplyr} and {ggplot2}!
 
 # EXERCISES
 # data manipulations \{dplyr\}
