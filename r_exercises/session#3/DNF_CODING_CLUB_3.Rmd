@@ -8,38 +8,29 @@ output:
 
 # INSTRUCTIONS
 
-There are different segment with emphasis on one part of the data process, each covering about 10 questions that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
+There are different segment with emphasis on one part of the data process, each covering questions that increase in difficulty. Fill in the answer within the code chunk. When you wish to test the code chunk, press the *green play button* on the right side of the code chunk to see your output. 
 
 Cheatsheets are provided where you can find clues for solving the questions. In more difficult cases, actual hints will be given as to which functions are required. You can access further information with *?x* where x is the function name, e.g. ?print().
 
 Also check [this page](https://juba.github.io/tidyverse/10-dplyr.html), specifically sections 8.3 and 10.2 for additional help.
 
-# basic operations \{base\}
+We encourage to write code in the spirit of tidyverse, which improves readability. For instance, compare the two codes below that filter the mtcars dataset for automatic cars, then categorizes them per cyl capaticy, and compute the average horse power.
 
-* bla
+```{r, results = F}
 
-* bla
-
-# data import \{readr\}
-
-There are several datasets available that we will import.
-
-```{r}
-
-suppressPackageStartupMessages( library(readr) )
 suppressPackageStartupMessages( library(dplyr) )
 
+# base code
+summarise(group_by(filter(mtcars, am == 1), cyl), hp = mean(hp))
+
+# tidyverse code
+mtcars %>% 
+  filter(am == 1) %>% 
+  group_by(cyl) %>% 
+  summarise(hp = mean(hp))
 ```
 
-1. Import the happiness dataset
-
-```{r}
-
-happy <- read_csv("happiness_2019.csv", col_types = cols())
-happy
-
-```
-
+# EXERCISES
 # data manipulations \{dplyr\}
 
 ```{r}
@@ -192,7 +183,6 @@ coronavirus %>%
     summarise(cases_in_february = sum(cases))
 
 # alternatively
-
 coronavirus %>% 
     # specific date functions are in the {lubridate} package
     filter(month(date) == 2) %>% 
@@ -209,7 +199,7 @@ suppressPackageStartupMessages( library(babynames) )
 
 ```
 
-12. What is the proportion of female babies that are called "Anna" in 1880 and 2017?
+1. What is the proportion of female babies that are called "Anna" in 1880 and 2017?
 
 ```{r}
 
@@ -219,7 +209,7 @@ babynames %>%
 
 ```
 
-13. From 1880-1900, which was the most popular name for boys and girls?
+2. From 1880-1900, which was the most popular name for boys and girls?
 
 ```{r}
 
@@ -233,7 +223,7 @@ babynames %>%
 
 ```
 
-14. From 1880-1900, which was the least popular name for boys and girls?
+3. From 1880-1900, which was the least popular name for boys and girls?
 
 ```{r}
 
@@ -247,7 +237,7 @@ babynames %>%
 
 ```
 
-15. From 2000-2017, which was the most popular name for boys and girls?
+4. From 2000-2017, which was the most popular name for boys and girls?
 
 ```{r}
 
@@ -261,7 +251,7 @@ babynames %>%
 
 ```
 
-16. From 2000-2017, which was the least popular name for boys and girls?
+5. From 2000-2017, which was the least popular name for boys and girls?
 
 ```{r}
 
@@ -275,7 +265,7 @@ babynames %>%
 
 ```
 
-15. For girls, what were the most popular name in 1880, 1917, 1943 and 2017?
+6. For girls, what were the most popular name in 1880, 1917, 1943 and 2017?
 
 ```{r}
 
@@ -290,7 +280,7 @@ babynames %>%
 
 ```
 
-16. How many different boy names were there between 1880-1900?
+7. How many different boy names were there between 1880-1900?
 
 ```{r}
 
@@ -303,7 +293,7 @@ babynames %>%
 
 ```
 
-17. How many different boy names were there between 2000-2017? Did we diversify compared to the previous era?
+8. How many different boy names were there between 2000-2017? Did we diversify compared to the previous era?
 
 ```{r}
 
@@ -316,7 +306,7 @@ babynames %>%
 
 ```
 
-18. What is the popularity of your own name in 2017?
+9. What is the popularity of your own name in 2017?
 
 ```{r}
 
@@ -325,11 +315,246 @@ babynames %>%
 
 ```
 
+### In the following questions, you will perform exploratory analysis on the flight schedule of airplanes arriving and departing from NYC in 2013. This dataset (flights) is contained in the {nycflights13} library.
+
+```{r}
+
+suppressPackageStartupMessages( library(nycflights13) )
+
+```
+
+1. How many flights have an arrival delay of more than 2 hours? HINT: **tally()**
+
+```{r}
+
+flights %>% 
+  filter(arr_delay >= 120) %>% 
+  tally()
+
+```
+
+2. How many flights flew to Houston (IAH or HOU)?
+
+```{r}
+
+flights %>% 
+  filter(dest %in% c("IAH", "HOU")) %>% 
+  tally()
+
+```
+
+3. How many flights were operated by UA, AA and DL separately?
+
+```{r}
+
+flights %>% 
+  filter(carrier %in% c("UA","AA","DL")) %>% 
+  group_by(carrier) %>% 
+  summarise(n = n())
+
+```
+
+4. How many flights departed in the months July, August and September separately?
+
+```{r}
+
+flights %>% 
+  filter(between(month,7,9)) %>% 
+  tally()
+
+```
+
+5. How many flights arrived with more than 2 hours delay, but left on time?
+
+```{r}
+
+flights %>% 
+  filter(arr_delay > 120 & dep_delay == 0) %>% 
+  tally()
+
+```
+
+6. How many flights departed between midnight and 6 am (inclusive)?
+
+```{r}
+
+flights %>% 
+  filter(between(dep_time, 0, 600)) %>% 
+  tally()
+
+```
+
+7. How many flights have a missing dep_time? What other variables are missing? What might these rows represent?
+
+```{r}
+
+# example row
+flights %>% 
+  filter(is.na(dep_time)) %>% 
+  head(1)
+
+flights %>% 
+  filter(is.na(dep_time)) %>% 
+  tally()
+
+```
+
+8. Sort flights to find the most delayed departure flights. 
+
+```{r}
+
+flights %>% 
+  arrange(desc(dep_delay)) 
+
+```
+
+9. Find the flights that flew the longest distance.
+
+```{r}
+
+flights %>% 
+  arrange(desc(distance))
+
+```
+
+10. Select from flights the following columns: dep_time, dep_delay, arr_time, arr_delay
+
+```{r}
+
+flights %>% 
+  select(dep_time, dep_delay, arr_time, arr_delay)
+
+# alternatively
+flights %>% 
+  select(starts_with("dep"), starts_with("arr"))
+
+```
+
+11. How many cancelled flights are there per month day?
+
+```{r}
+
+flights %>% 
+  filter(is.na(dep_time)) %>% 
+  group_by(day) %>% 
+  tally()
+
+```
+
+12. Which carrier has the most cancelled flights?
+
+```{r}
+
+flights %>% 
+  filter(is.na(dep_time)) %>% 
+  group_by(carrier) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  head(5) # top 5
+
+```
+
 # data visualizations \{ggplot2\}
 
 ```{r}
 
 suppressPackageStartupMessages( library(ggplot2) )
+suppressPackageStartupMessages( library(forcats) )
+
+```
+
+### In the following questions, you will perform exploratory analysis on the coronavirus. This dataset is contained in the like-named {coronavirus} library.
+
+1. Plot the confirmed coronavirus cases over time.
+
+```{r}
+
+coronavirus %>% 
+  filter(type == "confirmed") %>% 
+  ggplot(., aes(date, cases)) +
+  geom_point()
+
+```
+
+2. Plot the confirmed cases over time, as well as recovered from and death by coronavirus in side-by-side plots
+
+```{r}
+
+coronavirus %>% 
+  ggplot(., aes(date, cases)) +
+  geom_point() +
+  facet_wrap(~ type)
+
+```
+
+3. Plot the cumulative frequency of confirmed cases in Italy. HINT: **cumsum()**
+
+```{r}
+
+coronavirus %>% 
+  filter(Country.Region == "Italy") %>% 
+  filter(type == "confirmed") %>% 
+  mutate(cases_cumul = cumsum(cases)) %>% 
+  ggplot(., aes(date, cases_cumul)) +
+  geom_line()
+
+```
+
+4. Plot the cumulative frequency of confirmed cases in Italy as well as its neighbouring countries (France and Switzerland). Plot the progression in one plot, but with differently colored lines. HINT: **cumsum()**
+
+```{r}
+
+coronavirus %>% 
+  filter(Country.Region %in% c("Italy","Switzerland","France")) %>% 
+  filter(type == "confirmed") %>% 
+  group_by(Country.Region) %>% 
+  mutate(cases_cumul = cumsum(cases)) %>% 
+  ggplot(., aes(date, cases_cumul, color = Country.Region)) +
+  geom_line()
+
+```
+
+5. Selectively for Mainland China, which province has shown the most confirmed cases? Plot with bars, and sorted in decreasing severity. HINT: **fct_reorder()** from the {forcats} library and **coord_flip()**
+
+```{r}
+
+coronavirus %>% 
+  filter(Country.Region == "Mainland China") %>% 
+  filter(type == "confirmed") %>% 
+  group_by(Province.State) %>% 
+  summarise(cases = sum(cases)) %>% 
+  ggplot(., aes(fct_reorder(Province.State, cases), cases)) +
+  geom_col() +
+  coord_flip()
+  
+```
+
+6. In the coronavirus dataset, filter for recovered cases, and show per country the total amount of recovered cases. Plot with bars, and sorted in decreasing severity. Also, normalize the number of cases with log10 (to reduce the saturation from China).
+
+```{r}
+
+coronavirus %>% 
+  filter(type == "recovered") %>% 
+  group_by(Country.Region) %>% 
+  summarise(cases = sum(cases)) %>% 
+  ggplot(., aes(fct_reorder(Country.Region, cases), log10(cases))) +
+  geom_col() +
+  coord_flip()
+  
+```
+
+7. Selectively for Mainland China, plot the cumulative frequency of confirmed cases, as well as recovered and dead cases. Place in one plot, but with differently colored lines.
+
+```{r}
+
+coronavirus %>% 
+  filter(Country.Region == "Mainland China") %>% 
+  group_by(type, date) %>% 
+  summarise(cases = sum(cases)) %>% 
+  ungroup() %>% group_by(type) %>% 
+  mutate(cases_cumul = cumsum(cases)) %>% 
+  ggplot(., aes(date, cases_cumul, color = type)) +
+  geom_line()
 
 ```
 
@@ -396,7 +621,7 @@ suppressPackageStartupMessages( library(gapminder) )
 
 ```
 
-5. Plot the life expectancy for each continent from the year 2002 as individual points
+1. Plot the life expectancy for each continent from the year 2002 as individual points
 
 ```{r}
 
@@ -407,7 +632,7 @@ gapminder %>%
 
 ```
 
-6. Continue from the previous question: add some transparency in the dots and give each continent a different color.
+2. Continue from the previous question: add some transparency in the dots and give each continent a different color.
 
 ```{r}
 
@@ -418,7 +643,7 @@ gapminder %>%
 
 ```
 
-7. Continue from the previous question: add a boxplot to the graph. Add it in such a way that the individual points will still be visible.
+3. Continue from the previous question: add a boxplot to the graph. Add it in such a way that the individual points will still be visible.
 
 ```{r}
 
@@ -430,7 +655,7 @@ gapminder %>%
 
 ```
 
-8. Continue from the previous question: Adjust the labels so they are more presentable. Change the title on the y-axis to "Life Expectancy", and the title on the x-axis to "Continent". Add a title "My colorful plot". Also add a caption with "made by {your name}". Finally, remove the legend title.
+4. Continue from the previous question: Adjust the labels so they are more presentable. Change the title on the y-axis to "Life Expectancy", and the title on the x-axis to "Continent". Add a title "My colorful plot". Also add a caption with "made by {your name}". Finally, remove the legend title.
 
 ```{r}
 
@@ -442,13 +667,5 @@ gapminder %>%
     labs(x = "Continent", y = "Life Expectancy", 
          title = "My colorful plot", caption = "made by Adrian") +
     theme(legend.title = element_blank())
-
-```
-
-# data mining \{rvest\}
-
-```{r}
-
-suppressPackageStartupMessages( library(rvest) )
 
 ```

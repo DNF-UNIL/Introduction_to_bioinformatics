@@ -1,6 +1,0 @@
-"0",""
-"0","gapminder %>% "
-"0","    filter(year == 2002) %>% "
-"0","    ggplot(., aes(continent, lifeExp)) + "
-"0","    geom_point()"
-"0",""

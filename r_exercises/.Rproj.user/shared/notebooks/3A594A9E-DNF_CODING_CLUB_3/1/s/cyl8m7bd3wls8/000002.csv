@@ -1,4 +1,0 @@
-"0",""
-"0","coronavirus %>% "
-"0","    filter(type == ""recovered"") %>% "
-"0","    arrange(desc(date))"
