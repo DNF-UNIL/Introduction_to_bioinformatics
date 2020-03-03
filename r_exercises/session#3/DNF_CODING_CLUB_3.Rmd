@@ -48,6 +48,7 @@ suppressPackageStartupMessages( library(viridis) ) # install.packages("viridis")
 We load in the data. And make some minor adjustments, for consistency with other packages.
 
 ```{r}
+
 coronavirus
 
 coronavirus <- coronavirus %>% 
@@ -59,6 +60,7 @@ coronavirus <- coronavirus %>%
   ))
 
 max(coronavirus$date) # check whether the dataset is up to date (i.e. yesterday)
+
 ```
 
 With {ggplot2}, we can construct the world map. This map is constructed through a dataset "world" that contains all the longitudes and latitudes of all the country boundaries. In the code below we construct an ordinary world map. 
@@ -203,6 +205,15 @@ suppressPackageStartupMessages( library(coronavirus) )
 #
 
 ```
+
+12. How many cases are still existing worldwide? (= confirmed - death - recovered)
+
+```{r}
+
+#
+
+```
+
 
 ### In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
 
@@ -377,6 +388,7 @@ suppressPackageStartupMessages( library(nycflights13) )
 ```{r}
 
 #
+
 ```
 
 12. Which carrier has the most cancelled flights?
@@ -430,7 +442,7 @@ suppressPackageStartupMessages( library(forcats) )
 
 ```
 
-5. Selectively for Mainland China, which province has shown the most confirmed cases? Plot with bars, and sorted in decreasing severity. HINT: **fct_reorder()** from the {forcats} library and **coord_flip()**
+5. Selectively for China, which province has shown the most confirmed cases? Plot with bars, and sorted in decreasing severity. HINT: **fct_reorder()** from the {forcats} library and **coord_flip()**
 
 ```{r}
 
@@ -446,7 +458,23 @@ suppressPackageStartupMessages( library(forcats) )
   
 ```
 
-7. Selectively for Mainland China, plot the cumulative frequency of confirmed cases, as well as recovered and dead cases. Place in one plot, but with differently colored lines.
+7. Selectively for China, plot the cumulative frequency of confirmed cases, as well as recovered and dead cases. Place in one plot, but with differently colored lines.
+
+```{r}
+
+#
+
+```
+
+8. Continue from the previous question. Add another line that shows the number of existing cases. What can we observe?
+
+```{r}
+
+#
+
+```
+
+9. Plot the log10 number of death cases by coronavirus on the world map.
 
 ```{r}
 

@@ -48,6 +48,7 @@ suppressPackageStartupMessages( library(viridis) ) # install.packages("viridis")
 We load in the data. And make some minor adjustments, for consistency with other packages.
 
 ```{r}
+
 coronavirus
 
 coronavirus <- coronavirus %>% 
@@ -59,6 +60,7 @@ coronavirus <- coronavirus %>%
   ))
 
 max(coronavirus$date) # check whether the dataset is up to date (i.e. yesterday)
+
 ```
 
 With {ggplot2}, we can construct the world map. This map is constructed through a dataset "world" that contains all the longitudes and latitudes of all the country boundaries. In the code below we construct an ordinary world map. 
@@ -120,9 +122,7 @@ suppressPackageStartupMessages( library(coronavirus) )
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "confirmed") %>% 
-    summarise(worldwide_confirmed = sum(cases))
+#
 
 ```
 
@@ -130,9 +130,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "death") %>% 
-    summarise(worldwide_confirmed = sum(cases))
+#
 
 ```
 
@@ -140,12 +138,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "confirmed") %>% 
-    group_by(Country.Region) %>% 
-    summarise(confirmed = sum(cases)) %>% 
-    arrange(desc(confirmed)) %>% 
-    head(5)
+#
 
 ```
 
@@ -153,10 +146,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "confirmed") %>% 
-    arrange(desc(date)) %>% 
-    head(1)
+#
 
 ```
 
@@ -164,10 +154,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "recovered") %>% 
-    arrange(desc(date)) %>% 
-    head(1)
+#
 
 ```
 
@@ -175,10 +162,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "confirmed") %>% 
-    arrange(desc(cases)) %>% 
-    head(1)
+#
 
 ```
 
@@ -186,9 +170,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "confirmed") %>% 
-    filter(cases < 0)
+#
 
 ```
 
@@ -196,12 +178,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type == "death") %>% 
-    group_by(Country.Region) %>% 
-    summarise(death = sum(cases)) %>% 
-    filter(death > 20) %>% 
-    arrange(desc(death))
+#
 
 ```
 
@@ -209,17 +186,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(type %in% c("confirmed", "recovered")) %>% 
-    group_by(Country.Region, type) %>% 
-    summarise(cases = sum(cases)) %>% 
-    
-    # from {tidyr}: to have values put in separate columns
-    pivot_wider(names_from = "type", values_from = "cases") %>% 
-    mutate(recovered = ifelse(is.na(recovered), 0, recovered)) %>% 
-    mutate(proportion = recovered / confirmed) %>% 
-    filter(proportion > 0.60) %>% 
-    arrange(desc(proportion))
+#
 
 ```
 
@@ -227,15 +194,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(Country.Region == "Italy") %>% 
-    filter(type %in% c("confirmed", "recovered")) %>% 
-    group_by(type) %>% 
-    summarise(cases = sum(cases)) %>% 
-    
-    # from {tidyr}: to have values put in separate columns
-    pivot_wider(names_from = "type", values_from = "cases") %>% 
-    mutate(proportion = recovered / confirmed)
+#
     
 ```
 
@@ -243,19 +202,18 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-    filter(between(date, as.Date("2020-02-01"), as.Date("2020-02-29"))) %>% 
-    group_by(type) %>% 
-    summarise(cases_in_february = sum(cases))
-
-# alternatively
-coronavirus %>% 
-    # specific date functions are in the {lubridate} package
-    filter(month(date) == 2) %>% 
-    group_by(type) %>% 
-    summarise(cases_in_february = sum(cases))
+#
 
 ```
+
+12. How many cases are still existing worldwide? (= confirmed - death - recovered)
+
+```{r}
+
+#
+
+```
+
 
 ### In the following questions, you will explore the popularity of certain babynames. This dataset can be found in the like-named {babynames} library.
 
@@ -269,9 +227,7 @@ suppressPackageStartupMessages( library(babynames) )
 
 ```{r}
 
-babynames %>% 
-    filter(sex == "F" & name == "Anna") %>% 
-    filter(year %in% c(1880,2017))
+#
 
 ```
 
@@ -279,13 +235,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(between(year, 1880, 1900)) %>% 
-    group_by(name, sex) %>% 
-    summarise(n = sum(n)) %>% 
-    arrange(desc(n)) %>% 
-    group_by(sex) %>% 
-    slice(1)
+#
 
 ```
 
@@ -293,13 +243,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(between(year, 1880, 1900)) %>% 
-    group_by(name, sex) %>% 
-    summarise(n = sum(n)) %>% 
-    arrange(n) %>% 
-    group_by(sex) %>% 
-    slice(1)
+#
 
 ```
 
@@ -307,13 +251,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(between(year, 2000, 2017)) %>% 
-    group_by(name, sex) %>% 
-    summarise(n = sum(n)) %>% 
-    arrange(desc(n)) %>% 
-    group_by(sex) %>% 
-    slice(1)
+#
 
 ```
 
@@ -321,13 +259,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(between(year, 2000, 2017)) %>% 
-    group_by(name, sex) %>% 
-    summarise(n = sum(n)) %>% 
-    arrange(n) %>% 
-    group_by(sex) %>% 
-    slice(1)
+#
 
 ```
 
@@ -335,14 +267,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(sex == "F") %>% 
-    filter(year %in% c(1880,1917,1943,2017)) %>% 
-    group_by(year,name) %>% 
-    summarise(n = sum(n)) %>% 
-    ungroup() %>% arrange(year, desc(n)) %>% 
-    group_by(year) %>% 
-    slice(1)
+#
 
 ```
 
@@ -350,12 +275,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(sex == "M") %>% 
-    filter(between(year,1880,1900)) %>% 
-    pull(name) %>% 
-    unique() %>% 
-    length()
+#
 
 ```
 
@@ -363,12 +283,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(sex == "M") %>% 
-    filter(between(year,2000,2017)) %>% 
-    pull(name) %>% 
-    unique() %>% 
-    length()
+#
 
 ```
 
@@ -376,8 +291,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(name == "Adrian" & year == 2017)
+#
 
 ```
 
@@ -393,9 +307,7 @@ suppressPackageStartupMessages( library(nycflights13) )
 
 ```{r}
 
-flights %>% 
-  filter(arr_delay >= 120) %>% 
-  tally()
+#
 
 ```
 
@@ -403,9 +315,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(dest %in% c("IAH", "HOU")) %>% 
-  tally()
+#
 
 ```
 
@@ -413,10 +323,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(carrier %in% c("UA","AA","DL")) %>% 
-  group_by(carrier) %>% 
-  summarise(n = n())
+#
 
 ```
 
@@ -424,9 +331,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(between(month,7,9)) %>% 
-  tally()
+#
 
 ```
 
@@ -434,9 +339,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(arr_delay > 120 & dep_delay == 0) %>% 
-  tally()
+#
 
 ```
 
@@ -444,9 +347,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(between(dep_time, 0, 600)) %>% 
-  tally()
+#
 
 ```
 
@@ -454,14 +355,7 @@ flights %>%
 
 ```{r}
 
-# example row
-flights %>% 
-  filter(is.na(dep_time)) %>% 
-  head(1)
-
-flights %>% 
-  filter(is.na(dep_time)) %>% 
-  tally()
+#
 
 ```
 
@@ -469,8 +363,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  arrange(desc(dep_delay)) 
+#
 
 ```
 
@@ -478,8 +371,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  arrange(desc(distance))
+#
 
 ```
 
@@ -487,12 +379,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  select(dep_time, dep_delay, arr_time, arr_delay)
-
-# alternatively
-flights %>% 
-  select(starts_with("dep"), starts_with("arr"))
+#
 
 ```
 
@@ -500,10 +387,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(is.na(dep_time)) %>% 
-  group_by(day) %>% 
-  tally()
+#
 
 ```
 
@@ -511,12 +395,7 @@ flights %>%
 
 ```{r}
 
-flights %>% 
-  filter(is.na(dep_time)) %>% 
-  group_by(carrier) %>% 
-  tally() %>% 
-  arrange(desc(n)) %>% 
-  head(5) # top 5
+#
 
 ```
 
@@ -535,10 +414,7 @@ suppressPackageStartupMessages( library(forcats) )
 
 ```{r}
 
-coronavirus %>% 
-  filter(type == "confirmed") %>% 
-  ggplot(., aes(date, cases)) +
-  geom_point()
+#
 
 ```
 
@@ -546,10 +422,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-  ggplot(., aes(date, cases)) +
-  geom_point() +
-  facet_wrap(~ type)
+#
 
 ```
 
@@ -557,12 +430,7 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-  filter(Country.Region == "Italy") %>% 
-  filter(type == "confirmed") %>% 
-  mutate(cases_cumul = cumsum(cases)) %>% 
-  ggplot(., aes(date, cases_cumul)) +
-  geom_line()
+#
 
 ```
 
@@ -570,28 +438,15 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-  filter(Country.Region %in% c("Italy","Switzerland","France")) %>% 
-  filter(type == "confirmed") %>% 
-  group_by(Country.Region) %>% 
-  mutate(cases_cumul = cumsum(cases)) %>% 
-  ggplot(., aes(date, cases_cumul, color = Country.Region)) +
-  geom_line()
+#
 
 ```
 
-5. Selectively for Mainland China, which province has shown the most confirmed cases? Plot with bars, and sorted in decreasing severity. HINT: **fct_reorder()** from the {forcats} library and **coord_flip()**
+5. Selectively for China, which province has shown the most confirmed cases? Plot with bars, and sorted in decreasing severity. HINT: **fct_reorder()** from the {forcats} library and **coord_flip()**
 
 ```{r}
 
-coronavirus %>% 
-  filter(Country.Region == "Mainland China") %>% 
-  filter(type == "confirmed") %>% 
-  group_by(Province.State) %>% 
-  summarise(cases = sum(cases)) %>% 
-  ggplot(., aes(fct_reorder(Province.State, cases), cases)) +
-  geom_col() +
-  coord_flip()
+#
   
 ```
 
@@ -599,48 +454,31 @@ coronavirus %>%
 
 ```{r}
 
-coronavirus %>% 
-  filter(type == "recovered") %>% 
-  group_by(Country.Region) %>% 
-  summarise(cases = sum(cases)) %>% 
-  ggplot(., aes(fct_reorder(Country.Region, cases), log10(cases))) +
-  geom_col() +
-  coord_flip()
+#
   
 ```
 
-7. Selectively for Mainland China, plot the cumulative frequency of confirmed cases, as well as recovered and dead cases. Place in one plot, but with differently colored lines.
+7. Selectively for China, plot the cumulative frequency of confirmed cases, as well as recovered and dead cases. Place in one plot, but with differently colored lines.
 
 ```{r}
 
-coronavirus %>% 
-  filter(Country.Region == "Mainland China") %>% 
-  group_by(type, date) %>% 
-  summarise(cases = sum(cases)) %>% 
-  ungroup() %>% group_by(type) %>% 
-  mutate(cases_cumul = cumsum(cases)) %>% 
-  ggplot(., aes(date, cases_cumul, color = type)) +
-  geom_line()
+#
 
 ```
 
-8. Plot the log10 number of death cases by coronavirus on the world map.
+8. Continue from the previous question. Add another line that shows the number of existing cases. What can we observe?
 
 ```{r}
 
-world_map <- map_data("world")
+#
 
-world_death <- coronavirus %>% 
-  filter(type == "death") %>% 
-  group_by(Country.Region) %>% 
-  summarise(death_cases = sum(cases)) %>% 
-  arrange(desc(death_cases))
-  
-merged_map <- left_join(world_map, world_death, by = c("region" = "Country.Region"))
+```
 
-ggplot(merged_map, aes(long, lat, group = group)) + 
-  geom_polygon(aes(fill = log10(death_cases)), color = "white") +
-  scale_fill_viridis(option = "magma")
+9. Plot the log10 number of death cases by coronavirus on the world map.
+
+```{r}
+
+#
 
 ```
 
@@ -656,8 +494,7 @@ suppressPackageStartupMessages( library(babynames) )
 
 ```{r}
 
-births %>% 
-    ggplot(., aes(year, births)) + geom_line()
+#
 
 ```
 
@@ -666,11 +503,7 @@ births %>%
 
 ```{r}
 
-babynames %>% 
-    filter(name == "Tristan") %>% 
-    ggplot(., aes(year, prop)) +
-    geom_line() +
-    facet_wrap(~ sex)
+#
 
 ```
 
@@ -678,11 +511,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    filter(name %in% c("Mary","Noah")) %>% 
-    ggplot(., aes(year, prop)) +
-    geom_line() +
-    facet_grid(name ~ sex)
+#
 
 ```
 
@@ -690,12 +519,7 @@ babynames %>%
 
 ```{r}
 
-babynames %>% 
-    group_by(year, sex) %>% 
-    summarise(unique_names = n()) %>% 
-    ggplot(., aes(year, unique_names)) +
-    geom_line() +
-    facet_grid(. ~ sex)
+#
 
 ```
 
@@ -711,10 +535,7 @@ suppressPackageStartupMessages( library(gapminder) )
 
 ```{r}
 
-gapminder %>% 
-    filter(year == 2002) %>% 
-    ggplot(., aes(continent, lifeExp)) + 
-    geom_point()
+#
 
 ```
 
@@ -722,10 +543,7 @@ gapminder %>%
 
 ```{r}
 
-gapminder %>% 
-    filter(year == 2002) %>% 
-    ggplot(., aes(continent, lifeExp, color = continent)) + 
-    geom_point(alpha = 0.60)
+#
 
 ```
 
@@ -733,11 +551,7 @@ gapminder %>%
 
 ```{r}
 
-gapminder %>% 
-    filter(year == 2002) %>% 
-    ggplot(., aes(continent, lifeExp, color = continent)) + 
-    geom_boxplot() +
-    geom_point(alpha = 0.60)
+#
 
 ```
 
@@ -745,13 +559,6 @@ gapminder %>%
 
 ```{r}
 
-gapminder %>% 
-    filter(year == 2002) %>% 
-    ggplot(., aes(continent, lifeExp, color = continent)) + 
-    geom_boxplot() +
-    geom_point(alpha = 0.60) +
-    labs(x = "Continent", y = "Life Expectancy", 
-         title = "My colorful plot", caption = "made by Adrian") +
-    theme(legend.title = element_blank())
+#
 
 ```
