@@ -1,9 +1,0 @@
-"0","devtools::install_github(""RamiKrispin/coronavirus"") %>% suppressPackageStartupMessages()
-"
-"2","Skipping install of 'coronavirus' from a github remote, the SHA1 (c7a08321) has not changed since last install.
-  Use `force = TRUE` to force installation
-"
-"1","[1]"
-"1"," ""coronavirus"""
-"1","
-"
