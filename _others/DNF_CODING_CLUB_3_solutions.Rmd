@@ -553,8 +553,11 @@ suppressPackageStartupMessages( library(forcats) )
 
 coronavirus %>% 
   filter(type == "confirmed") %>% 
+  group_by(date) %>% 
+  summarise(cases = sum(cases)) %>% 
   ggplot(., aes(date, cases)) +
-  geom_point()
+  geom_point() +
+  geom_line()
 
 ```
 
@@ -563,9 +566,12 @@ coronavirus %>%
 ```{r}
 
 coronavirus %>% 
+  group_by(date, type) %>% 
+  summarise(cases = sum(cases)) %>% 
   ggplot(., aes(date, cases)) +
   geom_point() +
-  facet_wrap(~ type)
+  geom_line() +
+  facet_wrap(~ type) 
 
 ```
 
