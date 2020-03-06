@@ -1,0 +1,209 @@
+# https://gganimate.com/
+
+library(gganimate)
+library(gapminder)
+library(GSODR) # temperature data
+library(dplyr)
+library(lubridate)
+library(ggraph)
+
+# example 1 -----------------------------------------------------
+
+gapminder
+
+p <- ggplot(gapminder, aes(gdpPercap, lifeExp,
+                           size = pop, color = country)) +
+    geom_point(alpha = .7, show.legend = F) +
+    # scale_color_manual() +
+    scale_size(range = c(2,12)) +
+    scale_x_log10() +
+    labs(x = "GDP per capita", y = "life expectancy")
+
+# static image
+p    
+
+# dynamic images
+p + 
+    transition_time(year)
+
+p + 
+    transition_time(year) +
+    labs(title = "Year: {frame_time}") # from glue package
+
+p + 
+    transition_time(year) +
+    labs(title = "Year: {frame_time}") +
+    view_follow(fixed_y = T)
+
+p +
+    transition_time(year) +
+    labs(title = "Year: {frame_time}") +
+    shadow_wake(wake_length = .1, alpha = F)    
+
+p +
+    transition_time(year) +
+    labs(title = "Year: {frame_time}") +
+    shadow_mark(alpha = .3, size = .5)  
+
+p +
+    transition_time(year) +
+    labs(title = "Year: {frame_time}") +
+    ease_aes("linear")
+
+gapminder %>% 
+    filter(year < 1970 | year >= 1980) %>%
+    ggplot(., aes(gdpPercap, lifeExp,
+                  size = pop, color = country)) +
+    geom_point(alpha = .7, show.legend = F) +
+    scale_size(range = c(2,12)) +
+    scale_x_log10() +
+    labs(x = "GDP per capita", y = "life expectancy") +
+    transition_time(year) + # interpolated for missing data
+    labs(title = "Year: {frame_time}")
+
+# example 2 -----------------------------------------------------
+
+copenhagen <- nearest_stations(LAT = 55.676098,
+                               LON = 12.568337,
+                               distance = 50)
+austin <- nearest_stations(LAT = 30.267153,
+                           LON = -97.7430608,
+                           distance = 50)
+copenhagen_temp <- get_GSOD(2018, station = copenhagen)
+austin_temp <- get_GSOD(2018, station = austin)
+
+january <- bind_rows(copenhagen_temp, austin_temp) %>% 
+    filter(MONTH == 1) %>% 
+    distinct(YDAY,STNID, .keep_all = T) %>% 
+    mutate(location = ifelse(STNID %in% copenhagen, "Copenhagen","Austin")) %>% 
+    tbl_df()
+
+select(january, YDAY, TEMP, location, STNID)
+
+# static image
+g <- ggplot(january) +
+    geom_line(aes(x = YDAY, y = TEMP, color = location, group = STNID)) +
+    scale_color_brewer(type = "qual") +
+    theme(legend.position = "bottom") +
+    labs(x = "Day of Month",
+         y = "Temperature (celcius)",
+         color = NULL)
+g
+
+# dynamic image
+g +
+    geom_point(aes(x = YDAY, y = TEMP, color = location, group = STNID)) +
+    transition_reveal(YDAY)
+
+# static image    
+j <- ggplot(january) +
+    geom_smooth(aes(YDAY, TEMP, color = location)) +
+    scale_color_brewer(type = "qual") +
+    theme(legend.position = "bottom") +
+    labs(x = "Day of Month", y = "Temperature (celcius)", color = NULL)
+j
+
+# dynamic image
+j +
+    transition_reveal(stat(x))
+
+# ?scale_fill_distiller
+
+# ?transition_states(Month, wrap = F)
+# >> transition_states(Month, wrap = F) + shadow_mark() + enter_grow() + enter_fade()
+# ?enter_grow # when something new pops up, it grows 
+# ?enter_fade
+
+# mtcars --------------------------------------------------------
+
+ggplot(mtcars) +
+    geom_boxplot(aes(factor(cyl), mpg)) +
+    facet_wrap(~gear)
+
+ggplot(mtcars) +
+    geom_boxplot(aes(factor(cyl), mpg)) +
+    transition_states(
+        gear,
+        transition_length = 2,
+        state_length = 1
+    ) +
+    labs(
+        # frame variables: closest_state, next_state, previous_state, nframe, progress, ...
+        title = "Fuel consumption for {closest_state} gears"
+    ) +
+    enter_grow() +
+    exit_fade()
+
+ggplot(mtcars) +
+    geom_boxplot(aes(factor(cyl), mpg)) +
+    transition_states(
+        gear,
+        transition_length = 2,
+        state_length = 1
+    ) +
+    labs(
+        # frame variables: closest_state, next_state, previous_state, nframe, progress, ...
+        title = "Fuel consumption for {closest_state} gears"
+    ) +
+    enter_manual(function(x) {
+        x$x <- x$x + 3
+        x$xmin <- x$xmin + 3
+        x$xmax <- x$xmax + 3
+        x
+    }) +
+    exit_fade()
+
+# ggraph example ------------------------------------------------
+
+?ggraph()
+?geom_edge_link()
+?geom_node_point()
+
+# p <- ggplot(us) +
+#     geom_sf(aes(fill = pop, group = name)) +
+#     scale_fill_scico(palette = "lapaz") +
+#     coord_sf(datum = NA) +
+#     theme_void() +
+#     theme(
+#         legend.position = "bottom",
+#         legend.text = element_text(
+#             angle = 30,
+#             hjust = 1
+#         )
+#     ) +
+#     labs(fill = "Population")
+# p
+
+# library(cartogram)
+# us_ca <- cartogram(us, "pop")
+# p %+% us_ca
+
+# library(geogrid)
+# us_hex <- calculate_grid(
+#     shape = us,
+#     grid_type = "hexagonal",
+#     seed = 1
+# )
+# us_hex <- assign_polygons(us, us_hex)
+# p %+% us_hex
+
+# us_sq <- calculate_grid(
+#     shape = us,
+#     grid_type = "regular",
+#     seed = 13
+# )
+# us_sq <- assign_polygon(us, us_sq)
+# p %+% us_sq
+
+# us$type <- "Original"
+# us_hex$type <- "Cartogram Weighted by Population"
+# us_ca$type <- "Hexagonal Tiling"
+# us_sq$type <- "Square Tiling"
+# us_all <-
+#     rbind(us,
+#           us_hex[, names(us)],
+#           us_ca[, names(us)],
+#           us_sq[, names(us)])
+# (p %+% us_all) +
+#     labs(title = "Showing {closest+state}") +
+#     transition_states(type, 2, 1)
