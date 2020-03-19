@@ -1,8 +1,0 @@
-"0",""
-"0","suppressPackageStartupMessages( library(maps) )"
-"0","suppressPackageStartupMessages( library(ggplot2) )"
-"0",""
-"0","world_map <- map_data(""world"")"
-"0","ggplot(world_map, aes(x = long, y = lat, group = group)) +"
-"0","  geom_polygon(fill = ""lightgray"", color = ""white"")"
-"0",""

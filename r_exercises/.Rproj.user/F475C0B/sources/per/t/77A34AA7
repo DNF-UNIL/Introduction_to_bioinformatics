@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583960121748.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "709465012",
+    "id" : "77A34AA7",
+    "lastKnownWriteTime" : 1583962959,
+    "last_content_update" : 1583962959256,
+    "path" : "~/Documents/GitHub/Introduction_to_bioinformatics/r_exercises/session#3/coronavirus_evolution.R",
+    "project_path" : "session#3/coronavirus_evolution.R",
+    "properties" : {
+        "cursorPosition" : "78,43",
+        "scrollLine" : "72"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
