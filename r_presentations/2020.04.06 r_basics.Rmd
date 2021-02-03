@@ -1,0 +1,59 @@
+---
+title: 'session #4 r_basics'
+author: "Adrian C. Lo"
+date: "4/6/2020"
+output: pdf_document
+---
+
+#### R as an calculator
+
+```{r}
+7 - 5
+2 + 2
+2 * 4
+6 / 3
+3^2
+```
+
+#### Objects and basic R functions
+
+```{r}
+temperature_today <- 22
+temperature_yesterday <- 24
+
+temperature_today - temperature_yesterday
+```
+
+```{r}
+temperature_week <- c(24,22,23,30,25,10)
+
+mean(temperature_week)
+min(temperature_week)
+```
+
+#### R functions
+
+```{r}
+in_fahrenheit <- function(x) {
+  (x * 1.8) + 32
+}
+
+in_fahrenheit(22)
+in_fahrenheit(c(24,22,23,30,25,10))
+```
+
+#### Libraries and functions
+
+```{r}
+# if you DO NOT have the library
+# install.packages("ggplot2") 
+
+# if you have the library
+library(ggplot2) 
+
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  labs(x = "Horsepower", y = "Miles per gallon", title = "My first plot")
+```
+
